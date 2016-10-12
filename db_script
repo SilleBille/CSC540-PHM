@@ -1,0 +1,24 @@
+create table Patient(SSN integer NOT NULL, PNAME varchar(40), PID integer NOT NULL, DOB Date, Gender char(10), ADDR varchar(30), STATUS char(5), PRIMARY KEY(PID)); 
+create table Supporter(SSN integer NOT NULL, SID integer NOT NULL, SNAME varchar(30), PRIMARY KEY(SID))
+create table Supports(PID integer NOT NULL, SID integer NOT NULL, AUTHDATE date NOT NULL, PRIMARY KEY(PID, SID), FOREIGN KEY(PID) REFERENCES Patient, FOREIGN KEY(SID) REFERENCES Supporter);
+
+create table Diagnosis(DID integer NOT NULL, DNAME varchar(30), REC_BPH integer, REC_BPL integer,REC_WEIGHT integer, REC_TEMP real, PRIMARY KEY(DID));
+
+create table Observations(OID integer NOT NULL, DAYTIME date, PID integer, REC_BPH integer, REC_BPL integer,REC_WEIGHT integer, REC_TEMP real, ACT_BPH integer, ACT_BPL integer, ACT_WEIGHT integer, ACT_TEMP real, PRIMARY KEY(OID), FOREIGN KEY(PID) REFERENCES Patient)
+
+create table Alerts(AID integer NOT NULL, ALERTTYPE varchar(30), DATE date, PRIMARY KEY(AID));
+create table Has(PID integer NOT NULL, DID integer NOT NULL, DIAGNOSIS_DATE date, PRIMARY KEY(PID, DIAGNOSIS_DATE), FOREIGN KEY(PID) REFERENCES Patient, FOREIGN KEY(DID) REFERENCES Diagnosis );
+
+
+
+Queries:
+
+Select all sick patient whose supporters are also patient:
+
+SELECT P.NAME
+FROM Patient P, Supporter S2
+WHERE P.SSN = S2.SSN
+AND S2.SID IN
+(SELECT DISTINCT(S1.SID)
+FROM Supports S1)
+AND P.STATUS = 'sick'
