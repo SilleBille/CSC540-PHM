@@ -1,5 +1,19 @@
-create table Patient(SSN integer NOT NULL, PNAME varchar(40), PID integer NOT NULL, DOB Date, Gender char(10), ADDR varchar(30), STATUS char(5), PRIMARY KEY(PID)); 
-create table Supporter(SSN integer NOT NULL, SID integer NOT NULL, SNAME varchar(30), PRIMARY KEY(SID))
+// Date is of form: MM/DD/YYYY
+create table Users(PID integer NOT NULL, PASSWORD varchar(40) NOT NULL, PRIMARY KEY(PID));
+
+create table Patient(SSN integer NOT NULL,
+PNAME varchar(40), PID integer NOT NULL, DOB varchar(15), Gender varchar(10), ADDR varchar(100), STATUS varchar(5),
+PRIMARY KEY(PID),
+FOREIGN KEY(PID)REFERENCES USERS);
+
+
+create table Supporter(SSN integer NOT NULL,
+SID integer NOT NULL,
+SNAME varchar(30),
+PRIMARY KEY(SID),
+FOREIGN KEY (SID) REFERENCES USERS);
+
+
 create table Supports(PID integer NOT NULL, SID integer NOT NULL, AUTHDATE date NOT NULL, PRIMARY KEY(PID, SID), FOREIGN KEY(PID) REFERENCES Patient, FOREIGN KEY(SID) REFERENCES Supporter);
 
 create table Diagnosis(DID integer NOT NULL, DNAME varchar(30), REC_BPH integer, REC_BPL integer,REC_WEIGHT integer, REC_TEMP real, PRIMARY KEY(DID));
