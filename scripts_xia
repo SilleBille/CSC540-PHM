@@ -57,8 +57,8 @@ FOREIGN KEY (DID) REFERENCES Diagnosis);
 
 create table REC_OBV (
 OID integer NOT NULL,
-Otime CHARACTER(10) NOT NULL,       // MM/DD/YYYY
-Rtime CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Observe_Time CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Record_Time CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Spec_REC varchar(100),
 DID integer NOT NULL,
 PID integer NOT NULL,
@@ -96,7 +96,7 @@ FOREIGN KEY (DID) REFERENCES Diagnosis);
 
 create table Alert (
 AID integer NOT NULL,
-Adate CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Alert_Date CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Content varchar(100),
 OID integer NOT NULL,
 PID integer NOT NULL,
