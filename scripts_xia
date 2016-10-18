@@ -1,0 +1,110 @@
+create table User (
+UID integer NOT NULL,
+Password varchar(30) NOT NULL,
+Name varchar(40) NOT NULL,
+DOB date,
+Gender varchar(10),
+Address varchar(100),
+PRIMARY KEY(UID));
+
+create table Patient (
+PID integer NOT NULL,
+UID integer NOT NULL,
+PRIMARY KEY(PID),
+FOREIGN KEY (UID) REFERENCES User);
+
+create table Supporter (
+SID integer NOT NULL,
+UID integer NOT NULL,
+PRIMARY KEY(SID),
+FOREIGN KEY (UID) REFERENCES User);
+
+create table Support (
+PID integer NOT NULL,
+SID integer NOT NULL,
+Auth_Date date NOT NULL,
+Type varchar(10) NOT NULL,
+PRIMARY KEY(PID,SID),
+FOREIGN KEY (PID) REFERENCES Patient,
+FOREIGN KEY (SID) REFERENCES Supporter);
+
+create table Diagnosis (
+DID integer NOT NULL,
+Dname varchar(40) NOT NULL,
+REC_BPS_Lower integer,
+REC_BPS_Upper integer,
+REC_BPD_Lower integer,
+REC_BPD_Upper integer,
+REC_BP_Freq integer,
+REC_OXY real,
+REC_OXY_Freq integer,
+REC_Pain integer,
+REC_Pain_Freq integer,
+REC_Temp real,
+REC_Temp_Freq integer,
+REC_Mood varchar(20),
+REC_Mood_Freq integer,
+PRIMARY KEY(DID));
+
+create table Have (
+PID integer NOT NULL,
+DID integer NOT NULL,
+Since date NOT NULL,
+Status varchar(10) NOT NULL,
+PRIMARY KEY(PID,DID),
+FOREIGN KEY (PID) REFERENCES Patient,
+FOREIGN KEY (DID) REFERENCES Diagnosis);
+
+create table REC_OBV (
+OID integer NOT NULL,
+Otime date NOT NULL,
+Rtime date NOT NULL,
+Spec_REC varchar(100),
+DID integer NOT NULL,
+PID integer NOT NULL,
+SID integer NOT NULL,
+REC_BPS_Lower integer,
+REC_BPS_Upper integer,
+REC_BPD_Lower integer,
+REC_BPD_Upper integer,
+REC_BP_Freq integer,
+REC_OXY real,
+REC_OXY_Freq integer,
+REC_Pain integer,
+REC_Pain_Freq integer,
+REC_Temp real,
+REC_Temp_Freq integer,
+REC_Mood varchar(20),
+REC_Mood_Freq integer,
+ACT_BPS_Lower integer,
+ACT_BPS_Upper integer,
+ACT_BPD_Lower integer,
+ACT_BPD_Upper integer,
+ACT_BP_Freq integer,
+ACT_OXY real,
+ACT_OXY_Freq integer,
+ACT_Pain integer,
+ACT_Pain_Freq integer,
+ACT_Temp real,
+ACT_Temp_Freq integer,
+ACT_Mood varchar(20),
+ACT_Mood_Freq integer,
+PRIMARY KEY(OID),
+FOREIGN KEY (PID) REFERENCES Patient,
+FOREIGN KEY (SID) REFERENCES Supporter,
+FOREIGN KEY (DID) REFERENCES Diagnosis);
+
+create table Alert (
+AID integer NOT NULL,
+Adate date NOT NULL,
+Content varchar(100),
+OID integer NOT NULL,
+PID integer NOT NULL,
+SID integer NOT NULL,
+PRIMARY KEY(AID),
+FOREIGN KEY (PID) REFERENCES Patient,
+FOREIGN KEY (SID) REFERENCES Supporter,
+FOREIGN KEY (OID) REFERENCES REC_OBV);
+
+
+
