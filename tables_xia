@@ -1,29 +1,29 @@
-create table User (
-UID integer NOT NULL,
+create table Users (
+SSN integer NOT NULL,
 Password varchar(30) NOT NULL,
 Name varchar(40) NOT NULL,
-DOB CHARACTER(10),       // MM/DD/YYYY
-Gender varchar(10),
+DOB CHARACTER(10),       -- MM/DD/YYYY
+Gender varchar(10) check (Gender = 'male' or Gender = 'female'),
 Address varchar(100),
-PRIMARY KEY(UID));
+PRIMARY KEY(SSN));
 
 create table Patient (
 PID integer NOT NULL,
-UID integer NOT NULL,
+SSN integer NOT NULL,
 PRIMARY KEY(PID),
-FOREIGN KEY(UID) REFERENCES User);
+FOREIGN KEY(SSN) REFERENCES Users);
 
 create table Supporter (
 SID integer NOT NULL,
-UID integer NOT NULL,
+SSN integer NOT NULL,
 PRIMARY KEY(SID),
-FOREIGN KEY(UID) REFERENCES User);
+FOREIGN KEY(SSN) REFERENCES Users);
 
 create table Support (
 PID integer NOT NULL,
 SID integer NOT NULL,
-Auth_Date CHARACTER(10) NOT NULL,       // MM/DD/YYYY
-Type varchar(10) NOT NULL,
+Auth_Date CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Role varchar(10) NOT NULL check (Role = 'Primary' or Role = 'Secondary'),
 PRIMARY KEY(PID,SID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(SID) REFERENCES Supporter);
@@ -31,63 +31,78 @@ FOREIGN KEY(SID) REFERENCES Supporter);
 create table Diagnosis (
 DID integer NOT NULL,
 Dname varchar(40) NOT NULL,
+REC_Weight_Lower integer,
+REC_Weight_Upper integer,
+REC_Weight_Freq integer,
 REC_BPS_Lower integer,
 REC_BPS_Upper integer,
 REC_BPD_Lower integer,
 REC_BPD_Upper integer,
 REC_BP_Freq integer,
-REC_OXY real,
+REC_OXY_Lower real,
+REC_OXY_Upper real,
 REC_OXY_Freq integer,
-REC_Pain integer,
+REC_Pain integer check (REC_Pain >= 1 AND REC_Pain <= 10),
 REC_Pain_Freq integer,
-REC_Temp real,
+REC_Temp_Lower real,
+REC_Temp_Upper real,
 REC_Temp_Freq integer,
-REC_Mood varchar(20),
+REC_Mood varchar(20) check (REC_Mood = 'Happy' or REC_Mood = 'Sad' or REC_Mood = 'Neutral'),
 REC_Mood_Freq integer,
 PRIMARY KEY(DID));
 
 create table Have (
 PID integer NOT NULL,
 DID integer NOT NULL,
-Since CHARACTER(10) NOT NULL,       // MM/DD/YYYY
-Status varchar(10) NOT NULL,
+Since CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Status varchar(10) NOT NULL check (Status = 'Well' or Status = 'Sick'),
 PRIMARY KEY(PID,DID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(DID) REFERENCES Diagnosis);
 
 create table REC_OBV (
 OID integer NOT NULL,
-Observe_Time CHARACTER(10) NOT NULL,       // MM/DD/YYYY
-Record_Time CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Observe_Time CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Record_Time CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
 Spec_REC varchar(100),
 DID integer NOT NULL,
 PID integer NOT NULL,
 SID integer NOT NULL,
+REC_Weight_Lower integer,
+REC_Weight_Upper integer,
+REC_Weight_Freq integer,
 REC_BPS_Lower integer,
 REC_BPS_Upper integer,
 REC_BPD_Lower integer,
 REC_BPD_Upper integer,
 REC_BP_Freq integer,
-REC_OXY real,
+REC_OXY_Lower real,
+REC_OXY_Upper real,
 REC_OXY_Freq integer,
-REC_Pain integer,
+REC_Pain integer check (REC_Pain >= 1 AND REC_Pain <= 10),
 REC_Pain_Freq integer,
-REC_Temp real,
+REC_Temp_Lower real,
+REC_Temp_Upper real,
 REC_Temp_Freq integer,
-REC_Mood varchar(20),
+REC_Mood varchar(20) check (REC_Mood = 'Happy' or REC_Mood = 'Sad' or REC_Mood = 'Neutral'),
 REC_Mood_Freq integer,
+ACT_Weight_Lower integer,
+ACT_Weight_Upper integer,
+ACT_Weight_Freq integer,
 ACT_BPS_Lower integer,
 ACT_BPS_Upper integer,
 ACT_BPD_Lower integer,
 ACT_BPD_Upper integer,
 ACT_BP_Freq integer,
-ACT_OXY real,
+ACT_OXY_Lower real,
+ACT_OXY_Upper real,
 ACT_OXY_Freq integer,
-ACT_Pain integer,
+ACT_Pain integer check (ACT_Pain >= 1 AND ACT_Pain <= 10),
 ACT_Pain_Freq integer,
-ACT_Temp real,
+ACT_Temp_Lower real,
+ACT_Temp_Upper real,
 ACT_Temp_Freq integer,
-ACT_Mood varchar(20),
+ACT_Mood varchar(20) check (ACT_Mood = 'Happy' or ACT_Mood = 'Sad' or ACT_Mood = 'Neutral'),
 ACT_Mood_Freq integer,
 PRIMARY KEY(OID),
 FOREIGN KEY(PID) REFERENCES Patient,
@@ -96,7 +111,7 @@ FOREIGN KEY(DID) REFERENCES Diagnosis);
 
 create table Alert (
 AID integer NOT NULL,
-Alert_Date CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Alert_Date CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
 Content varchar(100),
 OID integer NOT NULL,
 PID integer NOT NULL,
@@ -105,6 +120,3 @@ PRIMARY KEY(AID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(SID) REFERENCES Supporter,
 FOREIGN KEY(OID) REFERENCES REC_OBV);
-
-
-
