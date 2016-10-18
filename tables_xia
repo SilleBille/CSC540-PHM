@@ -10,6 +10,7 @@ PRIMARY KEY(SSN));
 create table Patient (
 PID integer NOT NULL,
 SSN integer NOT NULL,
+Status varchar(10) NOT NULL check (Status = 'Well' or Status = 'Sick'),
 PRIMARY KEY(PID),
 FOREIGN KEY(SSN) REFERENCES Users);
 
@@ -55,7 +56,6 @@ create table Have (
 PID integer NOT NULL,
 DID integer NOT NULL,
 Since CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
-Status varchar(10) NOT NULL check (Status = 'Well' or Status = 'Sick'),
 PRIMARY KEY(PID,DID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(DID) REFERENCES Diagnosis);
@@ -120,3 +120,4 @@ PRIMARY KEY(AID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(SID) REFERENCES Supporter,
 FOREIGN KEY(OID) REFERENCES REC_OBV);
+
