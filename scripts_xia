@@ -2,7 +2,7 @@ create table User (
 UID integer NOT NULL,
 Password varchar(30) NOT NULL,
 Name varchar(40) NOT NULL,
-DOB date,
+DOB CHARACTER(10),       // MM/DD/YYYY
 Gender varchar(10),
 Address varchar(100),
 PRIMARY KEY(UID));
@@ -22,7 +22,7 @@ FOREIGN KEY (UID) REFERENCES User);
 create table Support (
 PID integer NOT NULL,
 SID integer NOT NULL,
-Auth_Date date NOT NULL,
+Auth_Date CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Type varchar(10) NOT NULL,
 PRIMARY KEY(PID,SID),
 FOREIGN KEY (PID) REFERENCES Patient,
@@ -49,7 +49,7 @@ PRIMARY KEY(DID));
 create table Have (
 PID integer NOT NULL,
 DID integer NOT NULL,
-Since date NOT NULL,
+Since CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Status varchar(10) NOT NULL,
 PRIMARY KEY(PID,DID),
 FOREIGN KEY (PID) REFERENCES Patient,
@@ -57,8 +57,8 @@ FOREIGN KEY (DID) REFERENCES Diagnosis);
 
 create table REC_OBV (
 OID integer NOT NULL,
-Otime date NOT NULL,
-Rtime date NOT NULL,
+Otime CHARACTER(10) NOT NULL,       // MM/DD/YYYY
+Rtime CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Spec_REC varchar(100),
 DID integer NOT NULL,
 PID integer NOT NULL,
@@ -96,7 +96,7 @@ FOREIGN KEY (DID) REFERENCES Diagnosis);
 
 create table Alert (
 AID integer NOT NULL,
-Adate date NOT NULL,
+Adate CHARACTER(10) NOT NULL,       // MM/DD/YYYY
 Content varchar(100),
 OID integer NOT NULL,
 PID integer NOT NULL,
