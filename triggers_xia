@@ -1,0 +1,41 @@
+CREATE TRIGGER status_update
+    After insert or UPDATE OF did ON have
+    FOR EACH ROW 
+BEGIN
+   UPDATE patient
+   set p.status = 'sick'
+   from patient p, have h
+   where p.pid = h.pid AND p.did <> 001      --001 is the did for well
+END;
+
+
+
+CREATE TRIGGER recommandation_update
+    After UPDATE OF did ON have
+    FOR EACH ROW 
+BEGIN
+   UPDATE REC_OBV
+   set 
+	o.REC_WEIGHT_LOWER = d.REC_WEIGHT_LOWER
+	o.REC_WEIGHT_UPPER = d.REC_WEIGHT_UPPER
+	o.REC_WEIGHT_FREQ = d.REC_WEIGHT_FREQ
+	o.REC_BPS_LOWER = d.REC_BPS_LOWER
+	o.REC_BPS_UPPER = d.REC_BPS_UPPER
+	o.REC_BPD_LOWER = d.REC_BPD_LOWER
+	o.REC_BPD_UPPER = d.REC_BPD_UPPER
+	o.REC_BP_FREQ = d.REC_BP_FREQ
+	o.REC_OXY_LOWER = d.REC_OXY_LOWER
+	o.REC_OXY_UPPER = d.REC_OXY_UPPER
+	o.REC_OXY_FREQ = d.REC_OXY_FREQ
+	o.REC_PAIN = d.REC_PAIN
+	o.REC_PAIN_FREQ = d.REC_PAIN_FREQ
+	o.REC_TEMP_LOWER = d.REC_TEMP_LOWER
+	o.REC_TEMP_UPPER = d.REC_TEMP_UPPER
+	o.REC_TEMP_FREQ = d.REC_TEMP_FREQ
+	o.REC_MOOD = d.REC_MOOD
+	o.REC_MOOD_FREQ = d.REC_MOOD_FREQ
+   from have h, diagnosis d, rec_obv o
+   where h.did = d.did AND d.did = o.did;  
+END;
+
+
