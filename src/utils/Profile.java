@@ -37,13 +37,13 @@ public class Profile {
         }
     }
 
-    public static void viewProfile()
+    private static void viewProfile()
     {
         //print query results here
         System.out.print("Query Here");
     }
 
-    public static void editProfile()
+    private static void editProfile()
     {
         String uidQuery;
         String dobQuery;
