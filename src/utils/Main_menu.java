@@ -1,7 +1,10 @@
 package utils;
 import java.util.Scanner;
 
-/**
+/**package utils;
+ import java.util.Scanner;
+
+ /**
  * Created by Tyler on 10/18/2016.
  *
  * Description:
@@ -15,29 +18,26 @@ import java.util.Scanner;
  */
 public class Main_menu {
 
-    public static void displayMenu()
-    {
-        int selection;
+    public static void displayMenu() {
+        int selection = 1;
 
         Scanner s = new Scanner(System.in);
 
-        System.out.print("Main Menu\n\n" +
-                "Please make a selection (1-6):\n" +
-                "1. Profile\n" +
-                "2. Diagnoses\n" +
-                "3. Health Indicator\n" +
-                "4. Alerts\n" +
-                "5. Health Supporters\n" +
-                "6. Logout\n");
+        while (selection != 6)
+        {
+            System.out.print("Main Menu\n\n"+
+                    "Please make a selection (1-6):\n"+
+                    "1. Profile\n"+
+                    "2. Diagnoses\n"+
+                    "3. Health Indicator\n"+
+                    "4. Alerts\n"+
+                    "5. Health Supporters\n"+
+                    "6. Logout\n");
 
-        try{
-            s.nextInt();
-        } catch (Exception e){
-            System.out.print("\n\nPlease enter a valid selection (1-6)");
-            displayMenu();
-        } finally{
-            switch (s.nextInt()) {
 
+            selection = s.nextInt();
+
+            switch(selection) {
                 case 1:
                     profile();
                     break;
@@ -55,40 +55,10 @@ public class Main_menu {
                     break;
                 case 6:
                     logout();
+                    break;
                 default:
-
                     break;
             }//end switch
-        }//end try catch
-    }//end of main
-
-    private static void profile()
-    {
-
-    }//end profile
-
-    private static void diagnoses()
-    {
-
-    }//end diagnoses
-
-    private static void health_ind()
-    {
-
-    }//end health_ind
-
-    private static void alerts()
-    {
-
-    }//end alerts
-
-    private static void health_sup()
-    {
-
-    }//end health_sup
-
-    private static void logout()
-    {
-
-    }//end logout
-}
+        }//end while
+    }//end main
+}//end class
