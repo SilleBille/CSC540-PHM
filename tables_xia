@@ -2,7 +2,7 @@ create table Users (
 SSN integer NOT NULL,
 Password varchar(30) NOT NULL,
 Name varchar(40) NOT NULL,
-DOB CHARACTER(10),       -- MM/DD/YYYY
+DOB date,
 Gender varchar(10) check (Gender = 'male' or Gender = 'female'),
 Address varchar(100),
 PRIMARY KEY(SSN));
@@ -23,7 +23,7 @@ FOREIGN KEY(SSN) REFERENCES Users);
 create table Support (
 PID integer NOT NULL,
 SID integer NOT NULL,
-Auth_Date CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Auth_Date date NOT NULL,
 Role varchar(10) NOT NULL check (Role = 'Primary' or Role = 'Secondary'),
 PRIMARY KEY(PID,SID),
 FOREIGN KEY(PID) REFERENCES Patient,
@@ -55,15 +55,15 @@ PRIMARY KEY(DID));
 create table Have (
 PID integer NOT NULL,
 DID integer NOT NULL,
-Since CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Since date NOT NULL,
 PRIMARY KEY(PID,DID),
 FOREIGN KEY(PID) REFERENCES Patient,
 FOREIGN KEY(DID) REFERENCES Diagnosis);
 
 create table REC_OBV (
 OID integer NOT NULL,
-Observe_Time CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
-Record_Time CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Observe_Time date NOT NULL,
+Record_Time date NOT NULL,
 Spec_REC varchar(100),
 DID integer NOT NULL,
 PID integer NOT NULL,
@@ -111,7 +111,7 @@ FOREIGN KEY(DID) REFERENCES Diagnosis);
 
 create table Alert (
 AID integer NOT NULL,
-Alert_Date CHARACTER(10) NOT NULL,       -- MM/DD/YYYY
+Alert_Date date NOT NULL,
 Content varchar(100),
 OID integer NOT NULL,
 PID integer NOT NULL,
