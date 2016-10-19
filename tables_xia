@@ -88,7 +88,7 @@ REC_Mood varchar(20) check (REC_Mood = 'Happy' or REC_Mood = 'Sad' or REC_Mood =
 REC_Mood_Freq integer,
 ACT_Weight_Lower integer,
 ACT_Weight_Upper integer,
-ACT_Weight_Freq integer,
+ACT_Weight_Freq integer,				-- ACT_Freq = DATEDIFF(day,Observe_Time,System_Time)
 ACT_BPS_Lower integer,
 ACT_BPS_Upper integer,
 ACT_BPD_Lower integer,
