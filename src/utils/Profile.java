@@ -24,10 +24,10 @@ public class Profile {
 
             switch (selection) {
                 case 1:
-                    Profile.viewProfile();
+                    viewProfile();
                     break;
                 case 2:
-                    Profile.editProfile();
+                    editProfile();
                     break;
                 case 3:
                     break;
