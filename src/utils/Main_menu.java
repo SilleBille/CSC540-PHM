@@ -39,7 +39,7 @@ public class Main_menu {
 
             switch(selection) {
                 case 1:
-                    profile();
+                    Profile.profileMod();
                     break;
                 case 2:
                     diagnoses();
