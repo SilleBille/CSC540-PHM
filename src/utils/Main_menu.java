@@ -42,7 +42,7 @@ public class Main_menu {
                     Profile.profileMod();
                     break;
                 case 2:
-                    diagnoses();
+                    Diagnoses.diagnosisMod();
                     break;
                 case 3:
                     health_ind();

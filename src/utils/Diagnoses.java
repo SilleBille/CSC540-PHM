@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Diagnoses {
 
-    public static void profileMod()
+    public static void diagnosisMod()
     {
         int selection = 1;
 
