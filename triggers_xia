@@ -1,13 +1,21 @@
-CREATE TRIGGER status_update
-    After insert or UPDATE OF did ON have
-    FOR EACH ROW 
+CREATE or REPLACE TRIGGER update_patient_status_sick
+AFTER INSERT ON HAVE
+FOR EACH ROW
 BEGIN
-   UPDATE patient
-   set p.status = 'sick'
-   from patient p, have h
-   where p.pid = h.pid AND p.did <> 001      --001 is the did for well
+  UPDATE PATIENT
+  SET STATUS='SICK'
+  WHERE :new.pid = PID AND :new.did <> 1; /* 1 is well patient */
 END;
 
+
+CREATE OR REPLACE TRIGGER UPDATE_PATIENT_STATUS_WELL
+AFTER UPDATE OF DID ON HAVE
+FOR EACH ROW
+BEGIN
+  UPDATE PATIENT
+  SET STATUS='WELL'
+  WHERE :new.pid = PID AND :new.did = 1; /* 1 is well patient */
+END;
 
 
 CREATE TRIGGER recommandation_update
