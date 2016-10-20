@@ -14,6 +14,9 @@ Status varchar(10) NOT NULL check (Status = 'WELL' or Status = 'SICK'),
 PRIMARY KEY(PID),
 FOREIGN KEY(SSN) REFERENCES Users);
 
+Alter Table Patient
+ADD CONSTRAINT unique_ssn UNIQUE (SSN)
+
 create table Supporter (
 SID integer NOT NULL,
 SSN integer NOT NULL,
