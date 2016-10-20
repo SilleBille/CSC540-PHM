@@ -3,14 +3,14 @@ SSN integer NOT NULL,
 Password varchar(30) NOT NULL,
 Name varchar(40) NOT NULL,
 DOB date,
-Gender varchar(10) check (Gender = 'male' or Gender = 'female'),
+Gender varchar(10) check (Gender = 'MALE' or Gender = 'FEMALE'),
 Address varchar(100),
 PRIMARY KEY(SSN));
 
 create table Patient (
 PID integer NOT NULL,
 SSN integer NOT NULL,
-Status varchar(10) NOT NULL check (Status = 'Well' or Status = 'Sick'),
+Status varchar(10) NOT NULL check (Status = 'WELL' or Status = 'SICK'),
 PRIMARY KEY(PID),
 FOREIGN KEY(SSN) REFERENCES Users);
 
