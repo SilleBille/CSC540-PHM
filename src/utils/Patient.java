@@ -8,7 +8,7 @@ package utils;
  */
 public class Patient {
 
-    public static void record()
+    public static void record(int userID);
     {
 
     }

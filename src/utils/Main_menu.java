@@ -96,7 +96,7 @@ public class Main_menu {
                         HealthSup.profileMod();
                         break;
                     case 6:
-                        Patient.class();
+                        Patient.record();
                         break;
                     case 7:
                         //logout();

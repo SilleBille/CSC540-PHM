@@ -37,7 +37,7 @@ public class Profile {
         }
     }
 
-    private static void viewProfile(String userID)
+    private static void viewProfile(int userID)
     {
         //insert sql to return current user profile here. Must receive uid from main method
         //set at login.
@@ -45,7 +45,7 @@ public class Profile {
         System.out.print("Query Results Here");//print query results here
     }
 
-    private static void editProfile(String userID)
+    private static void editProfile(int userID)
     {
         String uidQuery;
         String dobQuery;

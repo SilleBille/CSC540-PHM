@@ -19,7 +19,7 @@ public class HealthSup {
                     "Would you like to add or edit supporters (1-2):\n" +
                     "1. View Supporters\n" +
                     "2. Edit Supports\n" +
-                    "3. Add Supporters\n"
+                    "3. Add Supporters\n" +
                     "3. Exit to Main Menu");
 
             selection = s.nextInt();
@@ -29,7 +29,7 @@ public class HealthSup {
                     viewSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 2:
-                    editSupporters(Userid.USER_ID_STATIC);
+                    removeSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 3:
                     addSupporters(Userid.USER_ID_STATIC);
@@ -42,14 +42,14 @@ public class HealthSup {
         }
     }
 
-    private static void viewSupporters(String userID)
+    private static void viewSupporters(int userID)
     {
         //needs uid to find supporters for user
         //execute sql statement to return supporters to uid
         System.out.print("results here");
     }
 
-    private static void editSupporters(String userID)
+    private static void removeSupporters(int userID)
     {
         int selection = 1;
         Scanner s = new Scanner(System.in);
@@ -58,17 +58,16 @@ public class HealthSup {
         //execute sql statement to return supporters to uid
         System.out.println("name and sid here");
 
-        System.out.println("Which supporter would you like to edit? Please enter their SID.");
+        System.out.println("Which supporter would you like to remove? Please enter their SID.");
 
         selection = s.nextInt(); //hold sid to edit
 
-        //find uid associate with sid
         //form sql around sid selection
 
-        //update fields here
+
     }
 
-    private static void addSupporters(String userID)
+    private static void addSupporters(int userID)
     {
         Scanner s = new Scanner(System.in);
         String sUid = null;

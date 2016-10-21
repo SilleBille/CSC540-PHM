@@ -13,7 +13,7 @@ import java.io.*;
 
 public class Alerts {
 
-    public static void view(String userID) {
+    public static void view(int userID) {
         String response = null;
         Scanner s = new Scanner(System.in);
         ArrayList<String> alerts = new ArrayList<>();
@@ -29,8 +29,10 @@ public class Alerts {
             System.out.println("Would you like to clear this alert? (Y/N)");
             response = s.nextLine().toUpperCase();
 
-            if (response.equals("Y")){
+            if (response.equals("Y"))
+            {
                 //insert sql to update alert cleared field
+                System.out.println("Update cleared.");
             }
             System.out.print("\n\n\n");
         }

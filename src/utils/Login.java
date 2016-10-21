@@ -118,7 +118,7 @@ public class Login {
                 pst.setString(4, dob);
                 pst.setString(5, gender);
                 pst.setString(6, address);
-                pst.setString(7, "w"); // TODO: Need to change this!!!!
+                pst.setString(7, "WELL"); // TODO: Need to change this!!!!
 
                 pst.execute();
 
