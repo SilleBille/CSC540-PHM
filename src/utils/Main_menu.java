@@ -1,4 +1,6 @@
 package utils;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+
 import java.util.Scanner;
 
 /**
@@ -53,7 +55,7 @@ public class Main_menu {
                         Alerts.view(Userid.USER_ID_STATIC);
                         break;
                     case 5:
-                        //health_sup();
+                        HealthSup.profileMod();
                         break;
                     case 6:
                         //logout();
@@ -94,7 +96,7 @@ public class Main_menu {
                         //health_sup();
                         break;
                     case 6:
-                        //patient_mod;
+                        Patient.class();
                         break;
                     case 7:
                         //logout();

@@ -7,4 +7,10 @@ package utils;
  *
  */
 public class Patient {
+
+    public static void record()
+    {
+
+    }
+
 }

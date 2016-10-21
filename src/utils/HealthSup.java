@@ -14,11 +14,12 @@ public class HealthSup {
         int selection = 1;
         Scanner s = new Scanner(System.in);
 
-        while (selection != 3) {
+        while (selection != 4) {
             System.out.print("Profile Menu\n\n" +
                     "Would you like to add or edit supporters (1-2):\n" +
                     "1. View Supporters\n" +
-                    "2. Edit Add Supports\n" +
+                    "2. Edit Supports\n" +
+                    "3. Add Supporters\n"
                     "3. Exit to Main Menu");
 
             selection = s.nextInt();
@@ -31,6 +32,9 @@ public class HealthSup {
                     editSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 3:
+                    addSupporters(Userid.USER_ID_STATIC);
+                    break;
+                case 4:
                     break;
                 default:
                     break;
@@ -54,13 +58,30 @@ public class HealthSup {
         //execute sql statement to return supporters to uid
         System.out.println("name and sid here");
 
-        System.out.println("Which supporter would you like to edit?");
+        System.out.println("Which supporter would you like to edit? Please enter their SID.");
 
         selection = s.nextInt(); //hold sid to edit
 
+        //find uid associate with sid
         //form sql around sid selection
 
-        //edit fields here
+        //update fields here
+    }
+
+    private static void addSupporters(String userID)
+    {
+        Scanner s = new Scanner(System.in);
+        String sUid = null;
+        String aDate = null;
+
+        System.out.println("Please enter the UID of the supporter you would like to add.");
+        sUid = s.nextLine();
+        System.out.println("Please enter the authorization date of this supporter."); //need to find and add date format
+        aDate = s.nextLine();
+
+        // use Date() to create jbdc compatible date object - how can we handle format?
+
+        //INSERT statement to form relationship between userID's in Support table.
     }
 
 }
