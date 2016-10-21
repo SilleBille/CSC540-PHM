@@ -28,7 +28,7 @@ public class HealthSup {
                     viewSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 2:
-                    editSupporters();
+                    editSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 3:
                     break;
