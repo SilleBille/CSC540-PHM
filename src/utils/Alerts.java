@@ -19,10 +19,10 @@ public class Alerts {
         ArrayList<String> alerts = new ArrayList<>();
         ArrayList<String> keys = new ArrayList<>();
 
-        //needs UID from main menu login
+        //TODO needs UID from main menu login
 
-        //execute sql query to receive alerts for uid into array - alerts[]
-        //extract key field for each alert to keys arraylist
+        //TODO execute sql query to receive alerts for uid into array - alerts[]
+        //TODO extract key field for each alert to keys arraylist
 
         for (int i = 0; i < alerts.size(); i++) {
             System.out.println(alerts.get(i));
@@ -31,7 +31,7 @@ public class Alerts {
 
             if (response.equals("Y"))
             {
-                //insert sql to update alert cleared field
+                //TODO insert sql to update alert cleared field
                 System.out.println("Update cleared.");
             }
             System.out.print("\n\n\n");
