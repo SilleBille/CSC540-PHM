@@ -24,10 +24,10 @@ public class Profile {
 
             switch (selection) {
                 case 1:
-                    viewProfile();
+                    viewProfile(Userid.USER_ID_STATIC);
                     break;
                 case 2:
-                    editProfile();
+                    editProfile(Userid.USER_ID_STATIC);
                     break;
                 case 3:
                     break;
@@ -37,7 +37,7 @@ public class Profile {
         }
     }
 
-    private static void viewProfile()
+    private static void viewProfile(String userID)
     {
         //insert sql to return current user profile here. Must receive uid from main method
         //set at login.
@@ -45,7 +45,7 @@ public class Profile {
         System.out.print("Query Results Here");//print query results here
     }
 
-    private static void editProfile()
+    private static void editProfile(String userID)
     {
         String uidQuery;
         String dobQuery;
@@ -82,7 +82,7 @@ public class Profile {
         //insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + genderQuery);
 
-        System.out.println("Enter Patient");
+        System.out.println("Enter Patient Category");
         patCatQuery = s.nextLine();
         //insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + patCatQuery);

@@ -24,6 +24,8 @@ public class Main_menu {
         Scanner s = new Scanner(System.in);
 
         //insert sql statement to return boolean value of whether uid belongs to a health supporter or not.
+        //use Userid.USER_ID_STATIC
+
         if (isSupporter = false) {
             while (selection != 6) {
                 System.out.print("Main Menu\n\n" +
@@ -48,7 +50,7 @@ public class Main_menu {
                         //health_ind();
                         break;
                     case 4:
-                        //alerts();
+                        Alerts.view(Userid.USER_ID_STATIC);
                         break;
                     case 5:
                         //health_sup();

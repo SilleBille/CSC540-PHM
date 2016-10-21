@@ -2,6 +2,8 @@ package ui;
 
 import sql.ConnectionClass;
 import utils.Login;
+import utils.Main_menu;
+import utils.Userid;
 
 import java.sql.Connection;
 import java.util.Scanner;
@@ -38,10 +40,12 @@ public class Phms_main {
 
                     boolean isLoggedIn = Login.doLogin(conn, uid, pass);
                     if(isLoggedIn)
+                    {
                         System.out.println("WELCOME Mr./Mrs. " + uid);
 
-                    // TODO: Show the menu of what can be done!
-
+                        Userid.USER_ID_STATIC = uid; //sets userid for reuse in methods
+                        Main_menu.displayMenu(); //displays main menu for user options
+                    }
                     else {
                         System.out.println("Incorrect userid/password!");
                     }

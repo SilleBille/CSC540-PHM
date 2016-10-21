@@ -25,7 +25,7 @@ public class HealthSup {
 
             switch (selection) {
                 case 1:
-                    viewSupporters();
+                    viewSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 2:
                     editSupporters();
@@ -38,19 +38,19 @@ public class HealthSup {
         }
     }
 
-    private static void viewSupporters()
+    private static void viewSupporters(String userID)
     {
         //needs uid to find supporters for user
         //execute sql statement to return supporters to uid
         System.out.print("results here");
     }
 
-    private static void editSupporters()
+    private static void editSupporters(String userID)
     {
         int selection = 1;
         Scanner s = new Scanner(System.in);
 
-        //needs uid to find supporters for user
+        //needs uid to find supporters for user - user UserID.USER_ID_STATIC
         //execute sql statement to return supporters to uid
         System.out.println("name and sid here");
 
