@@ -90,10 +90,10 @@ public class Main_menu {
                         //health_ind();
                         break;
                     case 4:
-                        //alerts();
+                        Alerts.view(Userid.USER_ID_STATIC);
                         break;
                     case 5:
-                        //health_sup();
+                        HealthSup.profileMod();
                         break;
                     case 6:
                         Patient.class();
