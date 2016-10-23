@@ -35,11 +35,19 @@ public class Main_menu {
             ps.setInt(1, Userid.USER_ID_STATIC);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                if(rs.getInt(1) == 1)
+                if(rs.getInt(1) == 1) {
                     Userid.IS_SUPPORTER = true;
+                }
+
             }
 
             if (!Userid.IS_SUPPORTER) {
+                ps = con.prepareStatement(SqlQueries.SQL_FIND_PID_FOR_PATIENT);
+                ps.setInt(1, Userid.USER_ID_STATIC);
+                rs = ps.executeQuery();
+                if(rs.next()) {
+                    Userid.PID_STATIC = rs.getInt("PID");
+                }
                 while (selection != 6) {
                     System.out.print("Main Menu\n\n" +
                             "Please make a selection (1-6):\n" +
@@ -57,7 +65,7 @@ public class Main_menu {
                             Profile.profileMod(con);
                             break;
                         case 2:
-                            Diagnoses.diagnosisMod();
+                            Diagnoses.diagnosisMod(con);
                             break;
                         case 3:
                             //health_ind();
@@ -96,7 +104,7 @@ public class Main_menu {
                             Profile.profileMod(con);
                             break;
                         case 2:
-                            Diagnoses.diagnosisMod();
+                            Diagnoses.diagnosisMod(con);
                             break;
                         case 3:
                             //health_ind();

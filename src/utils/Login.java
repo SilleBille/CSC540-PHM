@@ -103,14 +103,20 @@ public class Login {
             pst.execute();
 
             if (isPatient) {
-                // PID, SSN, PNAME, DOB, GENDER, ADDR, STATUS
                 pst = connection.prepareStatement(SqlQueries.SQL_INSERT_PATIENT_TABLE);
                 pst.setInt(1, uid);
-
                 pst.execute();
 
+                pst = connection.prepareStatement(SqlQueries.SQL_FIND_PID_FOR_PATIENT);
+                pst.setInt(1, uid);
+                ResultSet rs = pst.executeQuery();
+                if(rs.next()) {
+                    pst = connection.prepareStatement(SqlQueries.SQL_INSERT_HAVE_TABLE);
+                    pst.setInt(1, rs.getInt("PID"));
+                    pst.execute();
+                }
+
             } else {
-                // SID, SSN, SNAME
                 pst = connection.prepareStatement(SqlQueries.SQL_INSERT_SUPPORTER_TABLE);
                 pst.setInt(1, uid);
 

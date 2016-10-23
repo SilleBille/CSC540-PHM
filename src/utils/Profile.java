@@ -19,8 +19,8 @@ public class Profile {
         Scanner s = new Scanner(System.in);
 
         while (selection != 3) {
-            System.out.println("Profile Menu\n\n" +
-                    "Please make a selection (1-6):\n" +
+            System.out.println("\nProfile Menu\n\n" +
+                    "Please make a selection (1-3):\n" +
                     "1. View Profile\n" +
                     "2. Edit Profile\n" +
                     "3. Exit to Main Menu");

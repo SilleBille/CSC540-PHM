@@ -6,4 +6,5 @@ package utils;
 public class Userid {
     public static int USER_ID_STATIC = 0;
     public static boolean IS_SUPPORTER = false;
+    public static int PID_STATIC = 0;
 }

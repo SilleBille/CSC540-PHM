@@ -1,21 +1,28 @@
 package utils;
 
+import sql.SqlQueries;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 /**
  * Created by Tyler on 10/19/2016.
  */
 public class Diagnoses {
-
-    public static void diagnosisMod()
+    static PreparedStatement ps;
+    static ResultSet rs;
+    static Scanner s;
+    public static void diagnosisMod(Connection con)
     {
         int selection = 1;
 
-        Scanner s = new Scanner(System.in);
+        s = new Scanner(System.in);
 
         while (selection != 4) {
-            System.out.print("Profile Menu\n\n" +
-                    "Please make a selection (1-6):\n" +
+            System.out.print("\nProfile Menu\n\n" +
+                    "Please make a selection (1-4):\n" +
                     "1. View Diagnoses\n" +
                     "2. Add Diagnoses\n" +
                     "3. Remove Diagnoses\n" +
@@ -25,13 +32,13 @@ public class Diagnoses {
 
             switch (selection) {
                 case 1:
-                    viewDiagnoses();
+                    viewDiagnoses(con);
                     break;
                 case 2:
-                    addDiagnoses();
+                    addDiagnoses(con);
                     break;
                 case 3:
-                    removeDiagnoses();
+                    removeDiagnoses(con);
                     break;
                 case 4:
                     break;
@@ -41,13 +48,46 @@ public class Diagnoses {
         }
     }
 
-    private static void viewDiagnoses()
+    private static void viewDiagnoses(Connection con)
     {
-        //TODO insert sql query call to return diagnoses here
-        System.out.print("Query Results Here");
+        try {
+           System.out.println("PID : " + Userid.PID_STATIC);
+            if(!Userid.IS_SUPPORTER) {
+                ps = con.prepareStatement(SqlQueries.SQL_GET_DIAGNOSIS_FOR_PATIENT);
+                ps.setInt(1, Userid.PID_STATIC);
+                rs = ps.executeQuery();
+                while(rs.next()) {
+                    System.out.println("DID: " + rs.getInt("DID"));
+                    System.out.println("Disease Name: " + rs.getString("DNAME"));
+                }
+            } else {
+                System.out.println("Available Patients for you to view: ");
+                ps = con.prepareStatement(SqlQueries.SQL_GET_PATIENT_LIST_FOR_SUPPORTER);
+                ps.setInt(1, Userid.USER_ID_STATIC);
+                rs = ps.executeQuery();
+                while(rs.next()) {
+                    System.out.println("PID: " + rs.getInt("PID"));
+                }
+
+
+                System.out.println("Enter PID to view Diagnosis: ");
+                int pid = s.nextInt();
+                ps = con.prepareStatement(SqlQueries.SQL_GET_DIAGNOSIS_FOR_PATIENT);
+                ps.setInt(1, pid);
+                rs = ps.executeQuery();
+
+                while(rs.next()) {
+                    System.out.println("DID: " + rs.getInt("DID"));
+                    System.out.println("Disease Name: " + rs.getString("DNAME"));
+                }
+
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void addDiagnoses()
+    private static void addDiagnoses(Connection con)
     {
         Scanner s = new Scanner(System.in);
 
@@ -61,7 +101,7 @@ public class Diagnoses {
         System.out.println("Diagnosis "+ diag + " added.");
     }
 
-    private static void removeDiagnoses()
+    private static void removeDiagnoses(Connection con)
     {
         System.out.println("Please enter a Diagnosis to remove.");
         String diag; // holds diagnosis name
