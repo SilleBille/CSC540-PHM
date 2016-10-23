@@ -16,7 +16,7 @@ public class HealthSup {
 
         while (selection != 4) {
             System.out.print("Profile Menu\n\n" +
-                    "Would you like to add or edit supporters (1-2):\n" +
+                    "Would you like to add or edit supporters (1-3):\n" +
                     "1. View Supporters\n" +
                     "2. Edit Supports\n" +
                     "3. Add Supporters\n" +
