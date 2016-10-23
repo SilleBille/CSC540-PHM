@@ -28,5 +28,14 @@ public class SqlQueries {
 
     public static final String SQL_GET_DIAGNOSIS_FOR_PATIENT = "SELECT d1.did, d1.dname FROM DIAGNOSIS d1, HAVE h WHERE d1.did = h.did AND h.PID = ?";
 
+    public static final String SQL_LIST_ALL_DIAGNOSIS = "SELECT DID, DNAME FROM DIAGNOSIS";
+    public static final String SQL_UPDATE_DIAGNOSIS = "UPDATE HAVE SET DID = ? WHERE PID = ?";
+    public static final String SQL_ADD_DIAGNOSIS = "INSERT INTO HAVE(DID, PID) VALUES (?, ?)";
+    public static final String SQL_IS_WELL_PATIENT_DIAGNOSIS = "SELECT count(*) FROM HAVE WHERE PID = ? AND DID = 203";
+
+    public static final String SQL_DIAGNOSIS_FOR_PATIENT = "SELECT h1.DID, d1.DNAME FROM HAVE h1, DIAGNOSIS d1 WHERE h1.DID = d1.DID AND h1.pid = ? AND h1.DID <> 203";
+    public static final String SQL_UPDATE_DIAGNOSIS_TO_WELL_PATIENT = "UPDATE HAVE SET DID=203 WHERE PID = ? AND DID=?";
+    public static final String SQL_DELETE_DIAGNOSIS = "DELETE FROM HAVE WHERE PID = ? AND DID=?";
+
 
 }
