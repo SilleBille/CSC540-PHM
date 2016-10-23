@@ -13,10 +13,10 @@ public class Diagnoses {
 
         Scanner s = new Scanner(System.in);
 
-        while (selection != 3) {
+        while (selection != 4) {
             System.out.print("Profile Menu\n\n" +
                     "Please make a selection (1-6):\n" +
-                    "1. View Profile\n" +
+                    "1. View Diagnoses\n" +
                     "2. Add Diagnoses\n" +
                     "3. Remove Diagnoses\n" +
                     "4. Exit to Main Menu");
