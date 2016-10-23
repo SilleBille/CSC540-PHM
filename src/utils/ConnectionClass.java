@@ -12,8 +12,8 @@ public class ConnectionClass {
     public static Connection conn = null;
 
     // These are my credentials. Please don't flood my schema :D
-    private static String user = "dmolugu";
-    private static String pass = "200153075";
+    private static String user = "txia4";
+    private static String pass = "200154262";
 
     public static Connection getDBConnection() {
         try {

@@ -43,7 +43,7 @@ public class Phms_main {
                     {
                         System.out.println("WELCOME Mr./Mrs. " + uid);
 
-                        Userid.USER_ID_STATIC = uid; //sets userid for reuse in methods
+                        Userid.USER_ID_STATIC = Integer.parseInt(uid); //sets userid for reuse in methods
                         Main_menu.displayMenu(); //displays main menu for user options
                     }
                     else {

@@ -16,7 +16,7 @@ public class HealthInd {
         Scanner s = new Scanner(System.in);
 
         while (selection != 4) {
-            System.out.print("Health Indicator Menu\n\n";
+            System.out.print("Health Indicator Menu\n\n");
 
             selection = s.nextInt();
 
@@ -55,5 +55,5 @@ public class HealthInd {
         }
     }
 
-    private static void
+
 }
