@@ -23,9 +23,6 @@ public class ConnectionClass {
 
             conn = DriverManager.getConnection(jdbcURL, user, pass);
 
-
-
-
             return conn;
 
 
