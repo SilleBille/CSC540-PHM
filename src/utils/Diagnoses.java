@@ -43,7 +43,7 @@ public class Diagnoses {
 
     private static void viewDiagnoses()
     {
-        //insert sql query call to return diagnoses here
+        //TODO insert sql query call to return diagnoses here
         System.out.print("Query Results Here");
     }
 
@@ -54,9 +54,9 @@ public class Diagnoses {
         System.out.println("Please enter a Diagnosis to add.");
         String diag; // holds diagnosis name
         diag = s.nextLine();
-        //INSERT sql call here
+        //TODO INSERT sql call here
 
-        //repeat last 3 lines for all parameters and add sql INSERT call to input diagnosis
+        //TODO repeat last 3 lines for all parameters and add sql INSERT call to input diagnosis
 
         System.out.println("Diagnosis "+ diag + " added.");
     }
@@ -70,7 +70,7 @@ public class Diagnoses {
 
         diag = s.nextLine();
 
-        //sql DELETE statement for defined diagnosis from diag
+        //TODO sql DELETE statement for defined diagnosis from diag
 
         System.out.println("Diagnosis removed.\n\n");
     }

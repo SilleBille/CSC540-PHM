@@ -25,7 +25,7 @@ public class Main_menu {
 
         Scanner s = new Scanner(System.in);
 
-        //insert sql statement to return boolean value of whether uid belongs to a health supporter or not.
+        //TODO insert sql statement to return boolean value of whether uid belongs to a health supporter or not.
         //use Userid.USER_ID_STATIC
 
         if (isSupporter = false) {
@@ -96,7 +96,7 @@ public class Main_menu {
                         HealthSup.profileMod();
                         break;
                     case 6:
-                        Patient.record();
+                        Patient.patientMod();
                         break;
                     case 7:
                         //logout();

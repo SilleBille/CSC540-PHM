@@ -45,7 +45,7 @@ public class HealthSup {
     private static void viewSupporters(int userID)
     {
         //needs uid to find supporters for user
-        //execute sql statement to return supporters to uid
+        //TODO execute sql statement to return supporters to uid
         System.out.print("results here");
     }
 
@@ -55,14 +55,14 @@ public class HealthSup {
         Scanner s = new Scanner(System.in);
 
         //needs uid to find supporters for user - user UserID.USER_ID_STATIC
-        //execute sql statement to return supporters to uid
+        //TODO execute sql statement to return supporters to uid
         System.out.println("name and sid here");
 
         System.out.println("Which supporter would you like to remove? Please enter their SID.");
 
         selection = s.nextInt(); //hold sid to edit
 
-        //form sql around sid selection
+        //TODO form sql around sid selection
 
 
     }
@@ -78,9 +78,9 @@ public class HealthSup {
         System.out.println("Please enter the authorization date of this supporter."); //need to find and add date format
         aDate = s.nextLine();
 
-        // use Date() to create jbdc compatible date object - how can we handle format?
+        //TODO  use Date() to create jbdc compatible date object - how can we handle format?
 
-        //INSERT statement to form relationship between userID's in Support table.
+        //TODO INSERT statement to form relationship between userID's in Support table.
     }
 
 }

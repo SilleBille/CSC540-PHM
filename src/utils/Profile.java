@@ -39,7 +39,7 @@ public class Profile {
 
     private static void viewProfile(int userID)
     {
-        //insert sql to return current user profile here. Must receive uid from main method
+        //TODO insert sql to return current user profile here. Must receive uid from main method
         //set at login.
 
         System.out.print("Query Results Here");//print query results here
@@ -59,32 +59,32 @@ public class Profile {
 
         System.out.println("Enter UID");
         uidQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + uidQuery);
 
         System.out.println("Enter DOB");
         dobQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + dobQuery);
 
         System.out.println("Enter Name");
         nameQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + nameQuery);
 
         System.out.println("Enter Address");
         addrQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + addrQuery);
 
         System.out.println("Enter Gender");
         genderQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + genderQuery);
 
         System.out.println("Enter Patient Category");
         patCatQuery = s.nextLine();
-        //insert sql call here to UPDATE tuple based on uid
+        //TODO insert sql call here to UPDATE tuple based on uid
         System.out.println("UID set to " + patCatQuery);
 
 
