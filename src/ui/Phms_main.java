@@ -3,7 +3,6 @@ package ui;
 import sql.ConnectionClass;
 import utils.Login;
 import utils.Main_menu;
-import utils.Userid;
 
 import java.sql.Connection;
 import java.util.Scanner;
@@ -19,6 +18,7 @@ public class Phms_main {
     private static final int LOGIN = 1;
     private static final int SIGNUP = 2;
     private static final int EXIT = 3;
+    private static final int IMPLEMENTED_QUERIES = 4;
     private static Connection conn;
 
     private static void showMenu() {
@@ -29,22 +29,23 @@ public class Phms_main {
                     "1. Login\n" +
                     "2. Signup\n" +
                     "3. Exit\n" +
+                    "4. Implemented Queries\n" +
                     "Enter your choice: ");
             int choice = scanner.nextInt();
             switch (choice) {
                 case LOGIN:
                     System.out.print("Enter your userID: ");
-                    String uid = scanner.next();
+                    int uid = scanner.nextInt();
                     System.out.print("Enter your pass: ");
                     String pass = scanner.next();
 
-                    boolean isLoggedIn = Login.doLogin(conn, uid, pass);
-                    if(isLoggedIn)
+                    String name = Login.doLogin(conn, uid, pass);
+                    if(name != null)
                     {
-                        System.out.println("WELCOME Mr./Mrs. " + uid);
+                        System.out.println("WELCOME Mr./Mrs. " + name);
 
-                        Userid.USER_ID_STATIC = Integer.parseInt(uid); //sets userid for reuse in methods
-                        Main_menu.displayMenu(); //displays main menu for user options
+
+                        Main_menu.displayMenu(conn); //displays main menu for user options
                     }
                     else {
                         System.out.println("Incorrect userid/password!");
