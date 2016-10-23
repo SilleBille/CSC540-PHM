@@ -9,13 +9,13 @@ import java.util.Scanner;
 
 /**
  * Created by Tyler on 10/18/2016.
- *
+ * <p>
  * Description:
  * Presents the user with the systems main menu.
  * User inputs a single integer for item selection.
  * Queries reflecting the user selection are executed
  * upon receipt of user input
- *
+ * <p>
  * Inputs:
  * int - via scanner
  * int - uid from main method
@@ -34,8 +34,8 @@ public class Main_menu {
             PreparedStatement ps = con.prepareStatement(SqlQueries.SQL_FIND_IS_SUPPORTER);
             ps.setInt(1, Userid.USER_ID_STATIC);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                if(rs.getInt(1) == 1) {
+            if (rs.next()) {
+                if (rs.getInt(1) == 1) {
                     Userid.IS_SUPPORTER = true;
                 }
 
@@ -45,7 +45,7 @@ public class Main_menu {
                 ps = con.prepareStatement(SqlQueries.SQL_FIND_PID_FOR_PATIENT);
                 ps.setInt(1, Userid.USER_ID_STATIC);
                 rs = ps.executeQuery();
-                if(rs.next()) {
+                if (rs.next()) {
                     Userid.PID_STATIC = rs.getInt("PID");
                 }
                 while (selection != 6) {
@@ -68,7 +68,7 @@ public class Main_menu {
                             Diagnoses.diagnosisMod(con);
                             break;
                         case 3:
-                            //health_ind();
+                            HealthInd.healthIndMenu(con);
                             break;
                         case 4:
                             Alerts.view(Userid.USER_ID_STATIC);
@@ -86,16 +86,14 @@ public class Main_menu {
                     }//end switch
                 }//end while
             } else {
-                while (selection != 7) {
+                while (selection != 5) {
                     System.out.print("Main Menu\n\n" +
                             "Please make a selection (1-6):\n" +
                             "1. Profile\n" +
                             "2. Diagnoses\n" +
                             "3. Health Indicator\n" +
                             "4. Alerts\n" +
-                            "5. Health Supporters\n" +
-                            "6. Patient Edit\n" +
-                            "7. Logout\n");
+                            "5. Logout\n");
 
                     selection = s.nextInt();
 
@@ -107,20 +105,14 @@ public class Main_menu {
                             Diagnoses.diagnosisMod(con);
                             break;
                         case 3:
-                            //health_ind();
+                            HealthInd.healthIndMenu(con);
                             break;
                         case 4:
                             Alerts.view(Userid.USER_ID_STATIC);
                             break;
                         case 5:
-                            HealthSup.profileMod();
-                            break;
-                        case 6:
-                            Patient.patientMod();
-                            break;
-                        case 7:
                             Userid.USER_ID_STATIC = 0;
-
+                            Userid.IS_SUPPORTER = false;
                             //logout();
                             break;
                         default:
@@ -128,7 +120,7 @@ public class Main_menu {
                     }//end switch
                 }//end while
             }//end if
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//end main
