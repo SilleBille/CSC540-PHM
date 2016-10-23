@@ -5,6 +5,10 @@ import sql.SqlQueries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -134,8 +138,8 @@ public class HealthInd {
             temp = getInteger(rs, "TEMP_FREQ");
             if (temp != null) System.out.println("TEMP_FREQ: " + temp);
 
-            temp = getInteger(rs, "MOOD");
-            if (temp != null) System.out.println("MOOD: " + temp);
+            String moodString = rs.getString("MOOD");
+            if (moodString != null) System.out.println("MOOD: " + moodString);
 
             temp = getInteger(rs, "MOOD_FREQ");
             if (temp != null) System.out.println("MOOD_FREQ: " + temp);
@@ -211,8 +215,8 @@ public class HealthInd {
             temp = getInteger(rs, "TEMP_FREQ");
             if (temp != null) System.out.println("TEMP_FREQ: " + temp);
 
-            temp = getInteger(rs, "MOOD");
-            if (temp != null) System.out.println("MOOD: " + temp);
+            String moodTemp =rs.getString("MOOD");
+            if (moodTemp != null) System.out.println("MOOD: " + moodTemp);
 
             temp = getInteger(rs, "MOOD_FREQ");
             if (temp != null) System.out.println("MOOD_FREQ: " + temp);
@@ -220,6 +224,12 @@ public class HealthInd {
         }
     }
 
+    private static Timestamp getTimeStamp(String dateAndTime) throws Exception{
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date date = dateFormat.parse(dateAndTime);
+        long time = date.getTime();
+        return new Timestamp(time);
+    }
     private static void enterObs(Connection con) throws Exception {
         int selection = 1;
         int uid = 0;
@@ -227,11 +237,12 @@ public class HealthInd {
 
         s = new Scanner(System.in);
 
-        int weight, bps, bpd, oxygen, pain, temperature;
+        int weight=0, bps=0, bpd=0, oxygen=0, pain=0, temperature=0;
         String w_otime, bps_otime, bpd_otime, oxygen_otime, pain_otime, temp_otime, mood_otime;
-        String mood;
+        Timestamp w_time =null, bps_time=null, bpd_time=null, oxygen_time=null, pain_time=null, temp_time=null, mood_time=null;
+        String mood=null;
 
-
+        int pid;
         if (isSupporter) {
             System.out.println("Available Patients for you to view: ");
             ps = con.prepareStatement(SqlQueries.SQL_GET_PATIENT_LIST_FOR_SUPPORTER);
@@ -243,13 +254,14 @@ public class HealthInd {
 
 
             System.out.println("Enter PID to View their Recommendations: ");
-            int pid = s.nextInt();
+            pid = s.nextInt();
             ps = con.prepareStatement(SqlQueries.SQL_GET_RECOMMENDATION_FOR_PATIENT);
             ps.setInt(1, pid);
 
         } else {
             ps = con.prepareStatement(SqlQueries.SQL_GET_RECOMMENDATION_FOR_PATIENT);
-            ps.setInt(1, Userid.PID_STATIC);
+            pid = Userid.PID_STATIC;
+            ps.setInt(1, pid);
         }
         rs = ps.executeQuery();
 
@@ -260,7 +272,10 @@ public class HealthInd {
             if (temp != null) {
                 System.out.println("Enter WEIGHT: ");
                 weight = s.nextInt();
-                System.out.println("Enter Observed Time in (MM/DD/YYYY HH:MM:SS)");
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                w_otime = s.nextLine();
+                w_time = getTimeStamp(w_otime);
 
             }
 
@@ -269,8 +284,17 @@ public class HealthInd {
             if (temp != null) {
                 System.out.println("Enter BPS: ");
                 bps = s.nextInt();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                bps_otime = s.nextLine();
+                bps_time = getTimeStamp(bps_otime);
+
                 System.out.println("Enter BPD: ");
                 bpd = s.nextInt();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                bpd_otime = s.nextLine();
+                bpd_time = getTimeStamp(bpd_otime);
             }
 
 
@@ -278,12 +302,20 @@ public class HealthInd {
             if (temp != null) {
                 System.out.println("Enter Oxygen Saturation: ");
                 oxygen = s.nextInt();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                oxygen_otime = s.nextLine();
+                oxygen_time = getTimeStamp(oxygen_otime);
             }
 
             temp = getInteger(rs, "PAIN_FREQ");
             if (temp != null) {
                 System.out.println("Enter pain: ");
                 pain = s.nextInt();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                pain_otime = s.nextLine();
+                pain_time = getTimeStamp(pain_otime);
             }
 
 
@@ -291,13 +323,70 @@ public class HealthInd {
             if (temp != null) {
                 System.out.println("Enter Temperature:  ");
                 temperature = s.nextInt();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                temp_otime = s.nextLine();
+                temp_time = getTimeStamp(temp_otime);
             }
 
             temp = getInteger(rs, "MOOD_FREQ");
             if (temp != null) {
                 System.out.println("Enter Mood {HAPPY, SAD, NEUTRAL}");
-                mood = s.next();
+                mood = s.next().toUpperCase();
+                System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
+                s.nextLine();
+                mood_otime = s.nextLine();
+                mood_time = getTimeStamp(mood_otime);
             }
+
+            ps = con.prepareStatement(SqlQueries.SQL_INSERT_OBSERVATION);
+            // PID,CREATED_BY,WEIGHT,WEIGHT_OTIME,WEIGHT_RTIME,
+            // 6. BPS,BPS_OTIME,BPS_RTIME,
+            // 9. BPD,BPD_OTIME,BPD_RTIME,
+            // 12. OXYGEN,OXYGEN_OTIME,OXYGEN_RTIME,
+            // 15. PAIN,PAIN_OTIME,PAIN_RTIME,MOOD,MOOD_OTIME,MOOD_RTIME,
+            // 21. TEMP,TEMP_OTIME,TEMP_RTIME
+            ps.setInt(1, pid);
+            ps.setInt(2, Userid.USER_ID_STATIC);
+            setIntOrNull(ps, 3, weight);
+            ps.setTimestamp(4, (w_time != null) ? w_time: null);
+            ps.setTimestamp(5, (w_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            setIntOrNull(ps, 6, bps);
+            ps.setTimestamp(7, (bps_time != null) ? bps_time: null);
+            ps.setTimestamp(8, (bps_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            setIntOrNull(ps, 9, bpd);
+            ps.setTimestamp(10, (bpd_time != null) ? bpd_time: null);
+            ps.setTimestamp(11, (bpd_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            setIntOrNull(ps, 12, oxygen);
+            ps.setTimestamp(13, (oxygen_time != null) ? oxygen_time: null);
+            ps.setTimestamp(14, (oxygen_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            setIntOrNull(ps, 15, pain);
+            ps.setTimestamp(16, (pain_time != null) ? pain_time: null);
+            ps.setTimestamp(17, (pain_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            ps.setString(18, (mood != null) ? mood : null);
+            ps.setTimestamp(19, (mood_time != null) ? mood_time: null);
+            ps.setTimestamp(20, (mood_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            setIntOrNull(ps, 21, temperature);
+            ps.setTimestamp(22, (temp_time != null) ? temp_time: null);
+            ps.setTimestamp(23, (temp_time != null) ? new Timestamp(System.currentTimeMillis()) : null);
+
+            ps.execute();
+
+        }
+    }
+
+    public static void setIntOrNull(PreparedStatement pstmt, int column, int value) throws Exception
+    {
+        if (value != 0) {
+            pstmt.setInt(column, value);
+        } else {
+            pstmt.setNull(column, java.sql.Types.INTEGER);
         }
     }
 

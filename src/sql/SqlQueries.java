@@ -50,5 +50,8 @@ public class SqlQueries {
             "r.BP_FREQ, r.OXY_LOWER, r.OXY_UPPER, r.OXY_FREQ, r.PAIN, r.PAIN_FREQ, r.TEMP_LOWER, r.TEMP_UPPER, r.TEMP_FREQ, r.MOOD, r.MOOD_FREQ " +
             "FROM patient_rec pr, RECOMMENDATIONS r WHERE pr.recid = r.recid AND pr.pid = ?";
 
+    public static final String SQL_INSERT_OBSERVATION = "INSERT INTO REC_OBV (PID,CREATED_BY,WEIGHT,WEIGHT_OTIME,WEIGHT_RTIME,BPS,BPS_OTIME,BPS_RTIME,BPD,BPD_OTIME,BPD_RTIME,OXYGEN,OXYGEN_OTIME,OXYGEN_RTIME,PAIN,PAIN_OTIME,PAIN_RTIME,MOOD,MOOD_OTIME,MOOD_RTIME,TEMP,TEMP_OTIME,TEMP_RTIME)" +
+            "VALUES (?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 
 }
