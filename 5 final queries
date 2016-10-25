@@ -1,0 +1,43 @@
+-- List the number of health supporters that were authorized in the month of September 2016 by patients suffering from heart disease.
+Select Count(Distinct S.sid)
+From Support S, Have H, Diagnosis D
+Where S.AUTH_Date >= 09/01/2016 And S.pid=H.pid And H.did=D.did And D.Dname='heart disease'
+
+-- Give the number of patients who were not complying with the recommended frequency of recording observations.
+Select Count(Distinct PR.pid)
+From Patient_Rec PR, Recommandations R, REC_OBV RO
+Where PR.recid=R.recid And PR.pid=RO.pid AND (
+
+DATEDIFF(day,RO.weight_rtime,System_Time) > R.weight_freq or
+DATEDIFF(day,RO.BPS_rtime,System_Time) > R.BP or
+DATEDIFF(day,RO.OXYGEN_rtime,System_Time) > R.OXY_freq or
+DATEDIFF(day,RO.Pain_rtime,System_Time) > R.pain_freq or
+DATEDIFF(day,RO.Mood_rtime,System_Time) > R.mood_freq or
+DATEDIFF(day,RO.Temp_rtime,System_Time) > R.Temp_freq
+
+)
+
+-- List the health supporters who themselves are patients.
+Select U.name
+From Users U, Supporter S, Patient P
+Where U.U_id=S.U_id And S.U_id=P.U_id
+
+-- List the patients who are not ‘sick’.
+Select U.name
+From Users U, Patient P
+Where U.U_id=P.U_id And P.status='WELL'
+
+-- How many patients have different observation time and recording time (of the observation).
+Select Count(Distinct P.pid)
+From Patient P, REC_OBV RO
+Where P.pid=RO.pid And (
+
+Weight_Otime <> Weight_Rtime or
+BPS_Otime <> BPS_Rtime or
+BPD_Otime <> BPD or
+OXYGEN_Otime <> OXYGEN_Rtime or
+Pain_Otime <> Pain_Rtime or
+Mood_Otime <> Mood_Rtime or
+Temp_Otime <> Temp_Rtime
+
+)
