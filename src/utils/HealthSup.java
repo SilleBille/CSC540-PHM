@@ -31,7 +31,7 @@ public class HealthSup {
                     "1. View Supporters\n" +
                     "2. Edit Supports\n" +
                     "3. Add Supporters\n" +
-                    "3. Exit to Main Menu");
+                    "4. Exit to Main Menu");
 
             selection = s.nextInt();
 
