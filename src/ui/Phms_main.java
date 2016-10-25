@@ -55,6 +55,8 @@ public class Phms_main {
                     boolean isSignedUp = Login.signup(conn);
                     if (!isSignedUp)
                         System.out.println("Something went wrong on signup!");
+                    else
+                        System.out.println("User successfully added!");
                     break;
                 case EXIT:
                     System.exit(0);
