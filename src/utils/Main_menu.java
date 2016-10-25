@@ -74,7 +74,7 @@ public class Main_menu {
                             Alerts.view(Userid.USER_ID_STATIC);
                             break;
                         case 5:
-                            HealthSup.profileMod();
+                            HealthSup.profileMod(con);
                             break;
                         case 6:
                             Userid.USER_ID_STATIC = 0;

@@ -12,6 +12,8 @@ public class SqlQueries {
     public static final String SQL_INSERT_USER_USERTABLE = "INSERT INTO USERS(U_ID, PASSWORD, NAME, DOB, GENDER, ADDRESS) VALUES (?, ?, ?, ?, ?, ?) ";
     public static final String SQL_INSERT_PATIENT_TABLE = "INSERT INTO PATIENT(U_ID) values (?)";
     public static final String SQL_INSERT_SUPPORTER_TABLE = "INSERT INTO SUPPORTER(U_ID) VALUES (?)";
+    public static final String SQL_INSERT_SUPPORT_TABLE = "INSERT INTO SUPPORT(PID, SID, AUTH_DATE, ROLE) VALUES (?, ?, ?, ?)";
+
     public static final String SQL_INSERT_HAVE_TABLE = "INSERT INTO HAVE(PID, DID) VALUES (?, 203)";
 
     public static final String SQL_FIND_IS_SUPPORTER = "SELECT COUNT(*) FROM USERS u, SUPPORTER s WHERE u.U_ID = s.U_ID AND u.U_ID = ?";
@@ -56,4 +58,6 @@ public class SqlQueries {
     public static final String SQL_VIEW_ALERT_FOR_UID = "SELECT * FROM ALERT WHERE U_ID = ? WHERE STATUS <> 'CLEARED' VALUES (?)";
 
     public static final String SQL_CLEAR_ALERT = "UPDATE ALERT SET STATUS = 'CLEARED' WHERE AID = ? VALUES(?)";
+
+    public static final String SQL_LIST_ALL_SUPPORTERS = "SELECT s.SID,  s.U_ID FROM SUPPORTER s";
 }

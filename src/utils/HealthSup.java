@@ -1,6 +1,14 @@
 package utils;
 
+import sql.SqlQueries;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import static utils.Alerts.con;
+import static utils.HealthInd.rs;
 
 /**
  * Created by Tyler on 10/19/2016.
@@ -10,7 +18,10 @@ import java.util.Scanner;
  */
 public class HealthSup {
 
-    public static void profileMod() {
+
+    static PreparedStatement ps;
+
+    public static void profileMod(Connection con) {
         int selection = 1;
         Scanner s = new Scanner(System.in);
 
@@ -26,13 +37,21 @@ public class HealthSup {
 
             switch (selection) {
                 case 1:
-                    viewSupporters(Userid.USER_ID_STATIC);
+                    try {
+                        viewSupporters(con);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
                     removeSupporters(Userid.USER_ID_STATIC);
                     break;
                 case 3:
-                    addSupporters(Userid.USER_ID_STATIC);
+                    try {
+                        addSupporters(con);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     break;
@@ -42,11 +61,17 @@ public class HealthSup {
         }
     }
 
-    private static void viewSupporters(int userID)
-    {
+    private static void viewSupporters(Connection con) throws SQLException {
         //needs uid to find supporters for user
         //TODO execute sql statement to return supporters to uid
-        System.out.print("results here");
+        System.out.println("Available Supporters: ");
+        ps = con.prepareStatement(SqlQueries.SQL_LIST_ALL_SUPPORTERS);
+        rs = ps.executeQuery();
+        System.out.println("SID   |   Supporter");
+        while (rs.next()) {
+            System.out.println(rs.getInt("SID") + "   |   " + rs.getInt("U_ID"));
+        }
+       // System.out.print("results here");
     }
 
     private static void removeSupporters(int userID)
@@ -67,16 +92,52 @@ public class HealthSup {
 
     }
 
-    private static void addSupporters(int userID)
-    {
+    private static void addSupporters(Connection con) throws Exception {
         Scanner s = new Scanner(System.in);
-        String sUid = null;
-        String aDate = null;
 
-        System.out.println("Please enter the UID of the supporter you would like to add.");
-        sUid = s.nextLine();
-        System.out.println("Please enter the authorization date of this supporter."); //need to find and add date format
-        aDate = s.nextLine();
+        int sup_id;
+        String auth_date, role;
+
+        System.out.println("Available Supporters: ");
+       ps = con.prepareStatement(SqlQueries.SQL_LIST_ALL_SUPPORTERS);
+        rs = ps.executeQuery();
+        System.out.println("SID   |   Supporter");
+        while (rs.next()) {
+            System.out.println(rs.getInt("SID") + "   |   " + rs.getInt("U_ID"));
+        }
+
+        System.out.println("Please enter the SID of the supporter you would like to add: ");
+        sup_id = s.nextInt();
+        System.out.println("Please enter the authorization date of this supporter (e.g. 01-JAN-1990): ");
+        auth_date = s.next();
+        System.out.println("Enter role of supporter (PRIMARY, SECONDARY): ");
+        role = s.next();
+
+
+
+        ps = con.prepareStatement(SqlQueries.SQL_INSERT_SUPPORT_TABLE);
+        ps.setInt(1, Userid.PID_STATIC);
+        ps.setInt(2, sup_id);
+        ps.setString(3, auth_date);
+        ps.setString(4, role);
+        ps.executeQuery();
+        /*if (rs.next()) {
+            if (rs.getInt(1) == 0) {
+                ps = con.prepareStatement(SqlQueries.SQL_ADD_DIAGNOSIS);
+                ps.setInt(1, diagId);
+                ps.setInt(2, Userid.PID_STATIC);
+                ps.execute();
+            } else {
+                ps = con.prepareStatement(SqlQueries.SQL_UPDATE_DIAGNOSIS);
+                ps.setInt(1, diagId);
+                ps.setInt(2, Userid.PID_STATIC);
+                ps.execute();
+            }
+        }*/
+
+        System.out.println("Supporter " + sup_id + " added.");
+
+
 
         //TODO  use Date() to create jbdc compatible date object - how can we handle format?
 
