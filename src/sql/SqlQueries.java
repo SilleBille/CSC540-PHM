@@ -47,7 +47,7 @@ public class SqlQueries {
             "OXY_LOWER, OXY_UPPER, OXY_FREQ, " +
             "PAIN, PAIN_FREQ, " +
             "TEMP_LOWER, TEMP_UPPER, TEMP_FREQ, " +
-            "MOOD, MOOD_FREQ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "MOOD, MOOD_FREQ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SQL_GET_RECOMMENDATION_FOR_PATIENT = "SELECT r.WEIGHT_LOWER, r.WEIGHT_UPPER, r.WEIGHT_FREQ, r.BPS_LOWER, r.BPS_UPPER, r.BPD_LOWER, r.BPD_UPPER," +
             "r.BP_FREQ, r.OXY_LOWER, r.OXY_UPPER, r.OXY_FREQ, r.PAIN, r.PAIN_FREQ, r.TEMP_LOWER, r.TEMP_UPPER, r.TEMP_FREQ, r.MOOD, r.MOOD_FREQ " +

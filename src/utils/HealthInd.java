@@ -466,6 +466,7 @@ public class HealthInd {
             ps.setInt(2, pid);
             ps.execute();
 
+            System.out.println("Special recommendation added!: ");
             /*    ps = con.prepareStatement(SqlQueries.SQL_INSERT_PATIENT_REC_TABLE);
                 ps.setInt(2, recid);
 
