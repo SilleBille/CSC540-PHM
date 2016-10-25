@@ -23,6 +23,7 @@ public class SqlQueries {
     public static final String SQL_SET_USER_DETAILS_PASSWORD = "UPDATE USERS SET PASSWORD=? WHERE U_ID = ?";
     public static final String SQL_SET_USER_DETAILS_NAME = "UPDATE USERS SET NAME=? WHERE U_ID = ?";
     public static final String SQL_SET_USER_DETAILS_DOB = "UPDATE USERS SET DOB=? WHERE U_ID = ?";
+    public static final String SQL_SET_PATIENT_SPECIAL_REC = "UPDATE PATIENT_REC SET RECID=? WHERE PID = ?";
     public static final String SQL_SET_USER_DETAILS_ADDRESS = "UPDATE USERS SET ADDRESS=? WHERE U_ID = ?";
     public static final String SQL_SET_USER_DETAILS_GENDER = "UPDATE USERS SET GENDER=? WHERE U_ID = ?";
 
@@ -38,13 +39,13 @@ public class SqlQueries {
     public static final String SQL_DELETE_DIAGNOSIS = "DELETE FROM HAVE WHERE PID = ? AND DID=?";
 
     public static final String SQL_INSERT_NEW_DIAGNOSIS = "INSERT INTO DIAGNOSIS (DNAME, RECID) VALUES (?, ?)";
-    public static final String SQL_INSERT_NEW_RECOMMENDATION = "INSERT INTO RECOMMENDATIONS (WEIGHT_LOWER, WEIGHT_UPPER, WEIGHT_FREQ," +
+    public static final String SQL_INSERT_NEW_RECOMMENDATION = "INSERT INTO RECOMMENDATIONS (WEIGHT_LOWER, RECID, WEIGHT_UPPER, WEIGHT_FREQ," +
             "BPS_LOWER, BPS_UPPER, " +
             "BPD_LOWER, BPD_UPPER, BP_FREQ, " +
             "OXY_LOWER, OXY_UPPER, OXY_FREQ, " +
             "PAIN, PAIN_FREQ, " +
             "TEMP_LOWER, TEMP_UPPER, TEMP_FREQ, " +
-            "MOOD, MOOD_FREQ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "MOOD, MOOD_FREQ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SQL_GET_RECOMMENDATION_FOR_PATIENT = "SELECT r.WEIGHT_LOWER, r.WEIGHT_UPPER, r.WEIGHT_FREQ, r.BPS_LOWER, r.BPS_UPPER, r.BPD_LOWER, r.BPD_UPPER," +
             "r.BP_FREQ, r.OXY_LOWER, r.OXY_UPPER, r.OXY_FREQ, r.PAIN, r.PAIN_FREQ, r.TEMP_LOWER, r.TEMP_UPPER, r.TEMP_FREQ, r.MOOD, r.MOOD_FREQ " +

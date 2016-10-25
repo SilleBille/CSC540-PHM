@@ -1,11 +1,8 @@
 package utils;
 
-import sql.SqlQueries;
+import sql.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +40,7 @@ public class HealthInd {
                             enterObs(con);
                             break;
                         case 3:
+                            enterSpecificRec(con);
                             break;
                         default:
                             break;
@@ -66,6 +64,7 @@ public class HealthInd {
                             enterObs(con);
                             break;
                         case 3:
+                            enterSpecificRec(con);
                             break;
                         default:
                             break;
@@ -270,7 +269,7 @@ public class HealthInd {
 
             temp = getInteger(rs, "WEIGHT_FREQ");
             if (temp != null) {
-                System.out.println("Enter WEIGHT: ");
+                    System.out.println("Enter WEIGHT: ");
                 weight = s.nextInt();
                 System.out.println("Enter Observed Time in (MM/dd/yyyy HH:mm:ss)");
                 s.nextLine();
@@ -381,12 +380,119 @@ public class HealthInd {
         }
     }
 
-    public static void setIntOrNull(PreparedStatement pstmt, int column, int value) throws Exception
+    private static boolean enterSpecificRec(Connection con) throws Exception {
+
+
+        int recid, weight_lower, weight_upper, bps_lower, bps_upper, bpd_lower, bpd_upper, oxygen_lower,oxygen_upper,
+                pain, temperature_lower, temperature_upper, temperature_freq, bpd_freq, oxygen_freq, weight_freq, pain_freq, mood_freq , pid;
+          String mood;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your desired RECID: ");
+        recid = scanner.nextInt();
+
+        System.out.println("Enter WEIGHT (LOWER): ");
+        weight_lower = scanner.nextInt();
+        System.out.println("Enter WEIGHT (UPPER): ");
+        weight_upper = scanner.nextInt();
+        System.out.println("Enter WEIGHT (FREQ): ");
+        weight_freq = scanner.nextInt();
+
+        System.out.println("Enter BPS (LOWER): ");
+        bps_lower = scanner.nextInt();
+        System.out.println("Enter BPS (UPPER): ");
+        bps_upper = scanner.nextInt();
+
+
+        System.out.println("Enter BPD (LOWER): ");
+        bpd_lower = scanner.nextInt();
+        System.out.println("Enter BPS (UPPER): ");
+        bpd_upper = scanner.nextInt();
+        System.out.println("Enter BPS (FREQ): ");
+        bpd_freq= scanner.nextInt();
+
+        System.out.println("Enter Oxygen Saturation (LOWER): ");
+        oxygen_lower = scanner.nextInt();
+        System.out.println("Enter Oxygen Saturation (UPPER): ");
+        oxygen_upper = scanner.nextInt();
+        System.out.println("Enter Oxygen Saturation (FREQ): ");
+        oxygen_freq = scanner.nextInt();
+
+        System.out.println("Enter pain: ");
+       pain = scanner.nextInt();
+        System.out.println("Enter pain (FREQ): ");
+        pain_freq = scanner.nextInt();
+
+        System.out.println("Enter Temperature (LOWER):  ");
+        temperature_lower = scanner.nextInt();
+        System.out.println("Enter Temperature (UPPER): ");
+        temperature_upper = scanner.nextInt();
+        System.out.println("Enter Temperature (FREQ): ");
+        temperature_freq = scanner.nextInt();
+
+        System.out.println("Enter Mood {HAPPY, SAD, NEUTRAL}:");
+        mood = scanner.next();
+        System.out.println("Enter Mood FREQ:");
+        mood_freq = scanner.nextInt();
+
+        try {
+            ps = con.prepareStatement(SqlQueries.SQL_INSERT_NEW_RECOMMENDATION);
+            ps.setInt(1, weight_lower);
+            ps.setInt(2, recid);
+            ps.setInt(3, weight_upper);
+            ps.setInt(4, weight_freq);
+            ps.setInt(5, bps_lower);
+            ps.setInt(6, bps_upper);
+            ps.setInt(7, bpd_lower);
+            ps.setInt(8, bpd_upper);
+            ps.setInt(9, bpd_freq);
+            ps.setInt(10, oxygen_lower);
+            ps.setInt(11, oxygen_upper);
+            ps.setInt(12, oxygen_freq);
+            ps.setInt(13, pain);
+            ps.setInt(14, pain_freq);
+            ps.setInt(15, temperature_lower);
+            ps.setInt(16, temperature_upper);
+            ps.setInt(17, temperature_freq);
+            ps.setString(18, mood);
+            ps.setInt(19, mood_freq);
+
+            ps.execute();
+            System.out.println("Enter Patient PID to add special recommendation: ");
+            pid = s.nextInt();
+            ps = con.prepareStatement(SqlQueries.SQL_SET_PATIENT_SPECIAL_REC);
+            ps.setInt(1, recid);
+            ps.setInt(2, pid);
+            ps.execute();
+
+            /*    ps = con.prepareStatement(SqlQueries.SQL_INSERT_PATIENT_REC_TABLE);
+                ps.setInt(2, recid);
+
+                ps.execute();*/
+
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (ps != null) try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    public static void setIntOrNull(PreparedStatement psmt, int column, int value) throws Exception
     {
         if (value != 0) {
-            pstmt.setInt(column, value);
+            psmt.setInt(column, value);
         } else {
-            pstmt.setNull(column, java.sql.Types.INTEGER);
+            psmt.setNull(column, java.sql.Types.INTEGER);
         }
     }
 
