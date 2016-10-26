@@ -18,6 +18,7 @@ public class SqlQueries {
 
     public static final String SQL_FIND_IS_SUPPORTER = "SELECT COUNT(*) FROM USERS u, SUPPORTER s WHERE u.U_ID = s.U_ID AND u.U_ID = ?";
     public static final String SQL_FIND_IS_PATIENT = "SELECT COUNT(*) FROM USERS u, PATIENT p WHERE u.U_ID = p.U_ID AND u.U_ID = ?;";
+
     public static final String SQL_FIND_PID_FOR_PATIENT = "SELECT PID FROM PATIENT WHERE U_ID=?";
     // public static final String SQL_FIND_PID_FOR_SUPPORTER = "SELECT s1.PID FROM SUPPORT s1, SUPPORTER s2 WHERE s2.U_ID=? AND s1.SID = s2.SID";
 

@@ -38,7 +38,6 @@ public class Main_menu {
                 if (rs.getInt(1) == 1) {
                     Userid.IS_SUPPORTER = true;
                 }
-
             }
 
             PreparedStatement ps2 = con.prepareStatement(SqlQueries.SQL_FIND_IS_PATIENT);
@@ -48,7 +47,6 @@ public class Main_menu {
                 if (rs2.getInt(1) == 1) {
                     Userid.IS_PATIENT = true;
                 }
-
             }
 
             if (Userid.IS_PATIENT == true && Userid.IS_SUPPORTER == true)
