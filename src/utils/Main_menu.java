@@ -41,6 +41,33 @@ public class Main_menu {
 
             }
 
+            PreparedStatement ps2 = con.prepareStatement(SqlQueries.SQL_FIND_IS_PATIENT);
+            ps2.setInt(1, Userid.USER_ID_STATIC);
+            ResultSet rs2 = ps.executeQuery();
+            if (rs2.next()) {
+                if (rs2.getInt(1) == 1) {
+                    Userid.IS_PATIENT = true;
+                }
+
+            }
+
+            if (Userid.IS_PATIENT == true && Userid.IS_SUPPORTER == true)
+            {
+                System.out.println("\n\n Would you like to login as a patient or a supporter? (P or S)");
+                String psSelect = s.nextLine().toUpperCase();
+                System.out.print("\n\n");
+
+                if(psSelect.equals("P"))
+                {
+                    Userid.IS_SUPPORTER = false;
+                }
+                else
+                {
+                    Userid.IS_PATIENT = false;
+                }
+            }
+
+            //if they aren't a supporter
             if (!Userid.IS_SUPPORTER) {
                 ps = con.prepareStatement(SqlQueries.SQL_FIND_PID_FOR_PATIENT);
                 ps.setInt(1, Userid.USER_ID_STATIC);
