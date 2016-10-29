@@ -4,11 +4,9 @@ import sql.SqlQueries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import static utils.Alerts.con;
-import static utils.HealthInd.rs;
 
 /**
  * Created by Tyler on 10/19/2016.
@@ -20,6 +18,7 @@ public class HealthSup {
 
 
     static PreparedStatement ps;
+    static ResultSet rs;
 
     public static void profileMod(Connection con) {
         int selection = 1;
