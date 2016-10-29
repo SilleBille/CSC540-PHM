@@ -96,7 +96,7 @@ public class Main_menu {
                             HealthInd.healthIndMenu(con);
                             break;
                         case 4:
-                            Alerts.view(Userid.USER_ID_STATIC);
+                            Alerts.view(con);
                             break;
                         case 5:
                             HealthSup.profileMod(con);
@@ -133,7 +133,7 @@ public class Main_menu {
                             HealthInd.healthIndMenu(con);
                             break;
                         case 4:
-                            Alerts.view(Userid.USER_ID_STATIC);
+                            Alerts.view(con);
                             break;
                         case 5:
                             Userid.USER_ID_STATIC = 0;

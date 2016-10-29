@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.io.*;
 
 
 /**
@@ -21,15 +20,16 @@ import java.io.*;
 public class Alerts {
 
     static PreparedStatement ps;
+    static PreparedStatement ps1;
     static ResultSet rs;
-    static Connection con = ConnectionClass.conn;
+    static ResultSet rs1;
 
     static public Integer getInteger(ResultSet rs, String strColName) throws Exception {
         int nValue = rs.getInt(strColName);
         return rs.wasNull() ? null : nValue;
     }
 
-    public static void view(int userID) throws Exception{
+    public static void view(Connection con) throws Exception{
         String response = null;
         Scanner s = new Scanner(System.in);
         ArrayList<String> alerts = new ArrayList<>();
@@ -44,7 +44,7 @@ public class Alerts {
             e.printStackTrace();
         }
 
-        int currAID = 0;
+        Integer currAID = null;
         while(rs.next())
         {
             currAID = getInteger(rs, "AID");
@@ -56,13 +56,13 @@ public class Alerts {
             String tempType = rs.getString("ALERT_TYPE");
             System.out.println("Alert Type = " + tempType);
 
-            int currUID = getInteger(rs, "U_ID");
+            Integer currUID = getInteger(rs, "U_ID");
             System.out.println("UID = " + currUID);
 
             String tempStatus = rs.getString("STATUS");
             System.out.println("Alert Status = " + tempType);
 
-            int tempPid = getInteger(rs, "PID");
+            Integer tempPid = getInteger(rs, "PID");
             System.out.println("PID = " + tempPid);
 
             String tempDesc = rs.getString("DESCRIPTION");
@@ -73,9 +73,9 @@ public class Alerts {
 
             if (response.equals("Y"))
             {
-                ps = con.prepareStatement(SqlQueries.SQL_CLEAR_ALERT);
-                ps.setInt(1, currAID);
-                rs = ps.executeQuery();
+                ps1 = con.prepareStatement(SqlQueries.SQL_CLEAR_ALERT);
+                ps1.setInt(1, currAID);
+                rs1 = ps1.executeQuery();
                 System.out.println("Update cleared.");
             }
             System.out.print("\n\n\n");
