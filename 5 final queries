@@ -1,21 +1,21 @@
 -- List the number of health supporters that were authorized in the month of September 2016 by patients suffering from heart disease.
 Select Count(Distinct S.sid)
 From Support S, Have H, Diagnosis D
-Where S.AUTH_Date >= 09/01/2016 And S.pid=H.pid And H.did=D.did And D.Dname='heart disease'
+Where S.AUTH_Date >= '09/01/2016' And S.pid=H.pid And H.did=D.did And D.Dname='heart disease'
 
 -- Give the number of patients who were not complying with the recommended frequency of recording observations.
 Select Count(Distinct PR.pid)
-From Patient_Rec PR, Recommandations R, REC_OBV RO
+From Patient_Rec PR, Recommendations R, REC_OBV RO
 Where PR.recid=R.recid And PR.pid=RO.pid AND (
 
-DATEDIFF(day,RO.weight_rtime,System_Time) > R.weight_freq or
-DATEDIFF(day,RO.BPS_rtime,System_Time) > R.BP or
-DATEDIFF(day,RO.OXYGEN_rtime,System_Time) > R.OXY_freq or
-DATEDIFF(day,RO.Pain_rtime,System_Time) > R.pain_freq or
-DATEDIFF(day,RO.Mood_rtime,System_Time) > R.mood_freq or
-DATEDIFF(day,RO.Temp_rtime,System_Time) > R.Temp_freq
+FUNC_FIND_DIFF_OF_DATES(RO.weight_rtime) > R.weight_freq or
+FUNC_FIND_DIFF_OF_DATES(RO.BPS_rtime) > R.BP_FREQ or
+FUNC_FIND_DIFF_OF_DATES(RO.OXYGEN_rtime) > R.OXY_freq or
+FUNC_FIND_DIFF_OF_DATES(RO.Pain_rtime) > R.pain_freq or
+FUNC_FIND_DIFF_OF_DATES(RO.Mood_rtime) > R.mood_freq or
+FUNC_FIND_DIFF_OF_DATES(RO.Temp_rtime) > R.Temp_freq
 
-)
+);
 
 -- List the health supporters who themselves are patients.
 Select U.name
@@ -34,7 +34,7 @@ Where P.pid=RO.pid And (
 
 Weight_Otime <> Weight_Rtime or
 BPS_Otime <> BPS_Rtime or
-BPD_Otime <> BPD or
+BPD_Otime <> BPD_Rtime or
 OXYGEN_Otime <> OXYGEN_Rtime or
 Pain_Otime <> Pain_Rtime or
 Mood_Otime <> Mood_Rtime or
