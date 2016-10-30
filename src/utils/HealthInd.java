@@ -1,6 +1,6 @@
 package utils;
 
-import sql.*;
+import sql.SqlQueries;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -229,7 +229,7 @@ public class HealthInd {
         long time = date.getTime();
         return new Timestamp(time);
     }
-    private static void enterObs(Connection con) throws Exception {
+    public static void enterObs(Connection con) throws Exception {
         int selection = 1;
         int uid = 0;
         boolean isSupporter = Userid.IS_SUPPORTER;

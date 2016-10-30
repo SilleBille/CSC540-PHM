@@ -24,8 +24,6 @@ public class ConnectionClass {
             conn = DriverManager.getConnection(jdbcURL, user, pass);
 
 
-
-
             return conn;
 
 
@@ -35,6 +33,14 @@ public class ConnectionClass {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void closeConnection() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

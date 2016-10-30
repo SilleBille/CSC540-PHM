@@ -59,7 +59,9 @@ public class Phms_main {
                         System.out.println("User successfully added!");
                     break;
                 case EXIT:
+                    ConnectionClass.closeConnection();
                     System.exit(0);
+
                     break;
             }
         }
@@ -72,6 +74,8 @@ public class Phms_main {
         } else {
             System.out.println("Connection to DB Failed!");
         }
+
+
 
     }
 

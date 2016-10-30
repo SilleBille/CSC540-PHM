@@ -5,7 +5,6 @@ import sql.SqlQueries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -28,7 +27,7 @@ public class HealthSup {
             System.out.print("Profile Menu\n\n" +
                     "Would you like to add or edit supporters (1-3):\n" +
                     "1. View Supporters\n" +
-                    "2. Edit Supports\n" +
+                    "2. Remove Supporter\n" +
                     "3. Add Supporters\n" +
                     "4. Exit to Main Menu");
 
@@ -37,14 +36,14 @@ public class HealthSup {
             switch (selection) {
                 case 1:
                     try {
-                        removeSupporters(Userid.USER_ID_STATIC,con);
+                        viewSupporters(con);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case 2:
                     try {
-                        removeSupporters(Userid.USER_ID_STATIC,con);
+                        removeSupporters(con);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -68,26 +67,26 @@ public class HealthSup {
         ps = con.prepareStatement(SqlQueries.SQL_LIST_SUPPORTERS_FOR_UID);
         ps.setInt(1, Userid.PID_STATIC);
         rs = ps.executeQuery();
-        System.out.println("SID and Name\n");
+        System.out.println("SID   |   Name");
         while(rs.next())
         {
-            System.out.print(getInteger(rs, "SID"));
-            System.out.print(rs.getString("NAME") + "\n\n");
+            System.out.print(getInteger(rs, "SID") +  "  |  ");
+            System.out.print(rs.getString("NAME") + "\n");
         }
     }
 
-    private static void removeSupporters(int userID,Connection con) throws Exception {
+    private static void removeSupporters(Connection con) throws Exception {
         int selection = 1;
         Scanner s = new Scanner(System.in);
 
         ps = con.prepareStatement(SqlQueries.SQL_LIST_SUPPORTERS_FOR_UID);
         ps.setInt(1, Userid.PID_STATIC);
         rs = ps.executeQuery();
-        System.out.println("SID and Name\n");
+        System.out.println("SID   |    Name");
         while(rs.next())
         {
-            System.out.print(getInteger(rs, "SID"));
-            System.out.print(rs.getString("NAME") + "\n\n");
+            System.out.print(getInteger(rs, "SID") + "  | ");
+            System.out.print(rs.getString("NAME") + "\n");
         }
 
         System.out.println("Which supporter would you like to remove? Please enter their SID.\n");

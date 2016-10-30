@@ -57,18 +57,17 @@ public class SqlQueries {
 
     public static final String SQL_INSERT_OBSERVATION = "INSERT INTO REC_OBV (PID,CREATED_BY,WEIGHT,WEIGHT_OTIME,WEIGHT_RTIME,BPS,BPS_OTIME,BPS_RTIME,BPD,BPD_OTIME,BPD_RTIME,OXYGEN,OXYGEN_OTIME,OXYGEN_RTIME,PAIN,PAIN_OTIME,PAIN_RTIME,MOOD,MOOD_OTIME,MOOD_RTIME,TEMP,TEMP_OTIME,TEMP_RTIME)" +
             "VALUES (?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String SQL_VIEW_ALERT_FOR_UID = "SELECT * FROM ALERT WHERE U_ID = ? AND STATUS <> 'CLEARED'";
+    public static final String SQL_VIEW_ALERT_FOR_UID = "SELECT * FROM ALERT WHERE U_ID=? AND STATUS='ATTENTION'";
 
     public static final String SQL_CLEAR_ALERT = "UPDATE ALERT SET STATUS = 'CLEARED' WHERE AID = ?";
 
     public static final String SQL_LIST_ALL_SUPPORTERS = "SELECT s.SID,  s.U_ID FROM SUPPORTER s";
 
-    public static final String SQL_LIST_SUPPORTERS_FOR_UID = "select supporter.sid, users.name from supporter\n" +
-            "join support on support.SID = supporter.SID\n" +
-            "join users on users.u_id = supporter.u_id\n" +
-            "where support.pid=? values (?);";
+    public static final String SQL_LIST_SUPPORTERS_FOR_UID = "select supporter.sid, users.name from supporter" +
+            " join support on support.SID = supporter.SID" +
+            " join users on users.u_id = supporter.u_id" +
+            " where support.pid=? ";
 
-    public static final String SQL_REMOVE_SUPPORTER = "delete from support where exists(select * from support\n" +
-            "where support.pid=? and support.sid=?) values(?,?);";
+    public static final String SQL_REMOVE_SUPPORTER = "delete from support where support.pid=? and support.sid=?";
 
 }
