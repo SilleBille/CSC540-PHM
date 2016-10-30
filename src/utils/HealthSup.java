@@ -37,13 +37,17 @@ public class HealthSup {
             switch (selection) {
                 case 1:
                     try {
-                        viewSupporters(con);
-                    } catch (SQLException e) {
+                        removeSupporters(Userid.USER_ID_STATIC,con);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case 2:
-                    removeSupporters(Userid.USER_ID_STATIC);
+                    try {
+                        removeSupporters(Userid.USER_ID_STATIC,con);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 3:
                     try {
@@ -60,35 +64,42 @@ public class HealthSup {
         }
     }
 
-    private static void viewSupporters(Connection con) throws SQLException {
-        //needs uid to find supporters for user
-        //TODO execute sql statement to return supporters to uid
-        System.out.println("Available Supporters: ");
-        ps = con.prepareStatement(SqlQueries.SQL_LIST_ALL_SUPPORTERS);
+    private static void viewSupporters(Connection con) throws Exception {
+        ps = con.prepareStatement(SqlQueries.SQL_LIST_SUPPORTERS_FOR_UID);
+        ps.setInt(1, Userid.PID_STATIC);
         rs = ps.executeQuery();
-        System.out.println("SID   |   Supporter");
-        while (rs.next()) {
-            System.out.println(rs.getInt("SID") + "   |   " + rs.getInt("U_ID"));
+        System.out.println("SID and Name\n");
+        while(rs.next())
+        {
+            System.out.print(getInteger(rs, "SID"));
+            System.out.print(rs.getString("NAME") + "\n\n");
         }
-       // System.out.print("results here");
     }
 
-    private static void removeSupporters(int userID)
-    {
+    private static void removeSupporters(int userID,Connection con) throws Exception {
         int selection = 1;
         Scanner s = new Scanner(System.in);
 
-        //needs uid to find supporters for user - user UserID.USER_ID_STATIC
-        //TODO execute sql statement to return supporters to uid
-        System.out.println("name and sid here");
+        ps = con.prepareStatement(SqlQueries.SQL_LIST_SUPPORTERS_FOR_UID);
+        ps.setInt(1, Userid.PID_STATIC);
+        rs = ps.executeQuery();
+        System.out.println("SID and Name\n");
+        while(rs.next())
+        {
+            System.out.print(getInteger(rs, "SID"));
+            System.out.print(rs.getString("NAME") + "\n\n");
+        }
 
-        System.out.println("Which supporter would you like to remove? Please enter their SID.");
+        System.out.println("Which supporter would you like to remove? Please enter their SID.\n");
 
         selection = s.nextInt(); //hold sid to edit
 
-        //TODO form sql around sid selection
+        ps = con.prepareStatement(SqlQueries.SQL_REMOVE_SUPPORTER);
+        ps.setInt(1, Userid.PID_STATIC);
+        ps.setInt(2, selection);
+        rs = ps.executeQuery();
 
-
+        System.out.println("\n\nSupporter Removed.\n\n");
     }
 
     private static void addSupporters(Connection con) throws Exception {
@@ -120,27 +131,12 @@ public class HealthSup {
         ps.setString(3, auth_date);
         ps.setString(4, role);
         ps.executeQuery();
-        /*if (rs.next()) {
-            if (rs.getInt(1) == 0) {
-                ps = con.prepareStatement(SqlQueries.SQL_ADD_DIAGNOSIS);
-                ps.setInt(1, diagId);
-                ps.setInt(2, Userid.PID_STATIC);
-                ps.execute();
-            } else {
-                ps = con.prepareStatement(SqlQueries.SQL_UPDATE_DIAGNOSIS);
-                ps.setInt(1, diagId);
-                ps.setInt(2, Userid.PID_STATIC);
-                ps.execute();
-            }
-        }*/
 
         System.out.println("Supporter " + sup_id + " added.");
-
-
-
-        //TODO  use Date() to create jbdc compatible date object - how can we handle format?
-
-        //TODO INSERT statement to form relationship between userID's in Support table.
     }
 
+    static public Integer getInteger(ResultSet rs, String strColName) throws Exception {
+        int nValue = rs.getInt(strColName);
+        return rs.wasNull() ? null : nValue;
+    }
 }

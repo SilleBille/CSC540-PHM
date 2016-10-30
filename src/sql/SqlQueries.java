@@ -62,4 +62,13 @@ public class SqlQueries {
     public static final String SQL_CLEAR_ALERT = "UPDATE ALERT SET STATUS = 'CLEARED' WHERE AID = ?";
 
     public static final String SQL_LIST_ALL_SUPPORTERS = "SELECT s.SID,  s.U_ID FROM SUPPORTER s";
+
+    public static final String SQL_LIST_SUPPORTERS_FOR_UID = "select supporter.sid, users.name from supporter\n" +
+            "join support on support.SID = supporter.SID\n" +
+            "join users on users.u_id = supporter.u_id\n" +
+            "where support.pid=? values (?);";
+
+    public static final String SQL_REMOVE_SUPPORTER = "delete from support where exists(select * from support\n" +
+            "where support.pid=? and support.sid=?) values(?,?);";
+
 }
