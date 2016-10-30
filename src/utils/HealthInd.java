@@ -40,7 +40,6 @@ public class HealthInd {
                             enterObs(con);
                             break;
                         case 3:
-                            enterSpecificRec(con);
                             break;
                         default:
                             break;

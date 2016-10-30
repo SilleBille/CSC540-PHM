@@ -67,11 +67,13 @@ public class HealthSup {
         ps = con.prepareStatement(SqlQueries.SQL_LIST_SUPPORTERS_FOR_UID);
         ps.setInt(1, Userid.PID_STATIC);
         rs = ps.executeQuery();
-        System.out.println("SID   |   Name");
+        System.out.println("SID   |   Name    |   Role");
         while(rs.next())
         {
             System.out.print(getInteger(rs, "SID") +  "  |  ");
-            System.out.print(rs.getString("NAME") + "\n");
+            System.out.print(rs.getString("NAME") + "   |   ");
+            System.out.println(rs.getString("ROLE") );
+
         }
     }
 
@@ -105,22 +107,20 @@ public class HealthSup {
         Scanner s = new Scanner(System.in);
 
         int sup_id;
-        String auth_date, role;
+        String auth_date;
 
         System.out.println("Available Supporters: ");
        ps = con.prepareStatement(SqlQueries.SQL_LIST_ALL_SUPPORTERS);
         rs = ps.executeQuery();
         System.out.println("SID   |   Supporter");
         while (rs.next()) {
-            System.out.println(rs.getInt("SID") + "   |   " + rs.getInt("U_ID"));
+            System.out.println(rs.getInt("SID") + "   |   " + rs.getString("NAME"));
         }
 
         System.out.println("Please enter the SID of the supporter you would like to add: ");
         sup_id = s.nextInt();
         System.out.println("Please enter the authorization date of this supporter (e.g. 01-JAN-1990): ");
         auth_date = s.next();
-        System.out.println("Enter role of supporter (PRIMARY, SECONDARY): ");
-        role = s.next();
 
 
 
@@ -128,7 +128,6 @@ public class HealthSup {
         ps.setInt(1, Userid.PID_STATIC);
         ps.setInt(2, sup_id);
         ps.setString(3, auth_date);
-        ps.setString(4, role);
         ps.executeQuery();
 
         System.out.println("Supporter " + sup_id + " added.");

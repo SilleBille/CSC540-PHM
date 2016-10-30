@@ -12,7 +12,7 @@ public class SqlQueries {
     public static final String SQL_INSERT_USER_USERTABLE = "INSERT INTO USERS(U_ID, PASSWORD, NAME, DOB, GENDER, ADDRESS) VALUES (?, ?, ?, ?, ?, ?) ";
     public static final String SQL_INSERT_PATIENT_TABLE = "INSERT INTO PATIENT(U_ID) values (?)";
     public static final String SQL_INSERT_SUPPORTER_TABLE = "INSERT INTO SUPPORTER(U_ID) VALUES (?)";
-    public static final String SQL_INSERT_SUPPORT_TABLE = "INSERT INTO SUPPORT(PID, SID, AUTH_DATE, ROLE) VALUES (?, ?, ?, ?)";
+    public static final String SQL_INSERT_SUPPORT_TABLE = "INSERT INTO SUPPORT(PID, SID, AUTH_DATE) VALUES (?, ?, ?)";
 
     public static final String SQL_INSERT_HAVE_TABLE = "INSERT INTO HAVE(PID, DID) VALUES (?, 203)";
 
@@ -61,12 +61,13 @@ public class SqlQueries {
 
     public static final String SQL_CLEAR_ALERT = "UPDATE ALERT SET STATUS = 'CLEARED' WHERE AID = ?";
 
-    public static final String SQL_LIST_ALL_SUPPORTERS = "SELECT s.SID,  s.U_ID FROM SUPPORTER s";
+    public static final String SQL_LIST_ALL_SUPPORTERS = "SELECT s1.SID,  u.name FROM SUPPORTER s1, Users u " +
+            "where u.u_id = s1.u_id";
 
-    public static final String SQL_LIST_SUPPORTERS_FOR_UID = "select supporter.sid, users.name from supporter" +
-            " join support on support.SID = supporter.SID" +
-            " join users on users.u_id = supporter.u_id" +
-            " where support.pid=? ";
+    public static final String SQL_LIST_SUPPORTERS_FOR_UID = "select s1.sid, u.name, s2.role from supporter s1, support s2, users u " +
+            "where s1.SID = s2.SID AND " +
+            "u.u_id = s1.u_id AND " +
+            "s2.pid=?";
 
     public static final String SQL_REMOVE_SUPPORTER = "delete from support where support.pid=? and support.sid=?";
 
