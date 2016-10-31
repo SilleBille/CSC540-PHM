@@ -4,40 +4,31 @@ From Support S, Have H, Diagnosis D
 Where S.AUTH_Date >= '09/01/2016' And S.pid=H.pid And H.did=D.did And D.Dname='heart disease';
 
 -- Give the number of patients who were not complying with the recommended frequency of recording observations.
-Select Count(Distinct PR.pid)
-From Patient_Rec PR, Recommendations R, REC_OBV RO
-Where PR.recid=R.recid And PR.pid=RO.pid AND (
-
-FUNC_FIND_DIFF_OF_DATES(RO.weight_rtime) > R.weight_freq or
-FUNC_FIND_DIFF_OF_DATES(RO.BPS_rtime) > R.BP_FREQ or
-FUNC_FIND_DIFF_OF_DATES(RO.OXYGEN_rtime) > R.OXY_freq or
-FUNC_FIND_DIFF_OF_DATES(RO.Pain_rtime) > R.pain_freq or
-FUNC_FIND_DIFF_OF_DATES(RO.Mood_rtime) > R.mood_freq or
-FUNC_FIND_DIFF_OF_DATES(RO.Temp_rtime) > R.Temp_freq
-
-);
+select count(distinct A.pid)
+from alert A
+where A.alert_type = 'LOW-ACTIVITY';
 
 -- List the health supporters who themselves are patients.
 Select U.name
 From Users U, Supporter S, Patient P
-Where U.U_id=S.U_id And S.U_id=P.U_id
+Where U.U_id=S.U_id And S.U_id=P.U_id;
 
 -- List the patients who are not ‘sick’.
 Select U.name
 From Users U, Patient P
-Where U.U_id=P.U_id And P.status='WELL'
+Where U.U_id=P.U_id And P.status='WELL';
 
 -- How many patients have different observation time and recording time (of the observation).
 Select Count(Distinct P.pid)
 From Patient P, REC_OBV RO
 Where P.pid=RO.pid And (
 
-Weight_Otime <> Weight_Rtime or
-BPS_Otime <> BPS_Rtime or
-BPD_Otime <> BPD_Rtime or
-OXYGEN_Otime <> OXYGEN_Rtime or
-Pain_Otime <> Pain_Rtime or
-Mood_Otime <> Mood_Rtime or
-Temp_Otime <> Temp_Rtime
+FUNC_FIND_DIFF_TWO_DATES(Weight_Otime, Weight_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(BPS_Otime, BPS_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(BPD_Otime, BPD_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(OXYGEN_Otime, OXYGEN_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(Pain_Otime, Pain_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(Mood_Otime, Mood_Rtime) >= 1 or
+FUNC_FIND_DIFF_TWO_DATES(Temp_Otime, Temp_Rtime) >= 1
 
-)
+);
